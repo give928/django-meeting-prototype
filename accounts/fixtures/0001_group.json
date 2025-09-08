@@ -1,0 +1,100 @@
+[
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "DB Inc."
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "IT부문"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "스마트사업본부"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+      "name": "스마트Business사업부"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 5,
+    "fields": {
+      "name": "영업1팀"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 6,
+    "fields": {
+      "name": "영업2팀"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 7,
+    "fields": {
+      "name": "스마트Delivery사업부"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 8,
+    "fields": {
+      "name": "PAO"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 9,
+    "fields": {
+      "name": "보험/금융팀"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 10,
+    "fields": {
+      "name": "공제/서비스팀"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 11,
+    "fields": {
+      "name": "인프라기술팀"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 12,
+    "fields": {
+      "name": "KAS센터"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 13,
+    "fields": {
+      "name": "KIDI DTO"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 14,
+    "fields": {
+      "name": "라이나코리아 DTO"
+    }
+  }
+]

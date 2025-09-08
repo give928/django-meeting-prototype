@@ -1,0 +1,137 @@
+[
+  {
+    "model": "accounts.department",
+    "pk": 1,
+    "fields": {
+      "parent_id": null,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 2,
+    "fields": {
+      "parent_id": 1,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 3,
+    "fields": {
+      "parent_id": 2,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 4,
+    "fields": {
+      "parent_id": 3,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 5,
+    "fields": {
+      "parent_id": 4,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 6,
+    "fields": {
+      "parent_id": 4,
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 7,
+    "fields": {
+      "parent_id": 3,
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 8,
+    "fields": {
+      "parent_id": 7,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 9,
+    "fields": {
+      "parent_id": 7,
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 10,
+    "fields": {
+      "parent_id": 7,
+      "is_active": true,
+      "order": 3
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 11,
+    "fields": {
+      "parent_id": 7,
+      "is_active": true,
+      "order": 4
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 12,
+    "fields": {
+      "parent_id": 7,
+      "is_active": true,
+      "order": 5
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 13,
+    "fields": {
+      "parent_id": 12,
+      "is_active": true,
+      "order": 1
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 14,
+    "fields": {
+      "parent_id": 12,
+      "is_active": true,
+      "order": 2
+    }
+  },
+  {
+    "model": "accounts.department",
+    "pk": 14,
+    "fields": {
+      "parent_id": 12,
+      "is_active": true,
+      "order": 2
+    }
+  }
+]

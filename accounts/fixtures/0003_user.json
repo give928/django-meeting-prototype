@@ -1,0 +1,1279 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "uskang@dbgroup.co.kr",
+      "username": "강운식",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRESIDENT",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "biblekim09@dbinc.co.kr",
+      "username": "김성경",
+      "first_name": "",
+      "last_name": "",
+      "position": "VICE_PRESIDENT",
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "sllee87@dbinc.co.kr",
+      "username": "이성림",
+      "first_name": "",
+      "last_name": "",
+      "position": "DIRECTOR",
+      "groups": [
+        4
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "djlee0122@dbinc.co.kr",
+      "username": "이동준",
+      "first_name": "",
+      "last_name": "",
+      "position": "LEADER",
+      "groups": [
+        5
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "jerico@dbinc.co.kr",
+      "username": "김성욱",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        5
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "hansang@dbinc.co.kr",
+      "username": "김한상",
+      "first_name": "",
+      "last_name": "",
+      "position": "DIRECTOR",
+      "groups": [
+        7
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 7,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "mos92@dbinc.co.kr",
+      "username": "이종민",
+      "first_name": "",
+      "last_name": "",
+      "position": "LEADER",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 8,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "patetica@dbinc.co.kr",
+      "username": "강현욱",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 9,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "daykim@dbinc.co.kr",
+      "username": "김다영",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 10,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "dwkim0209@dbinc.co.kr",
+      "username": "김대원",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 11,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "sam230eh@dbinc.co.kr",
+      "username": "김도훈",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 12,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "dongm@dbinc.co.kr",
+      "username": "김동민",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 13,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "seonpil.kim@dbinc.co.kr",
+      "username": "김선필",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 14,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "kslhaha@dbinc.co.kr",
+      "username": "김성룡",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 15,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "kimysu@dbinc.co.kr",
+      "username": "김영수",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 16,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "kimyh07@dbinc.co.kr",
+      "username": "김용현",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 17,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "kim.jy@dbinc.co.kr",
+      "username": "김종윤",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 18,
+    "fields": {
+      "last_login": null,
+      "is_superuser": true,
+      "is_staff": true,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "joo5@dbinc.co.kr",
+      "username": "김주호",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 19,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "herekjs@dbinc.co.kr",
+      "username": "김지수",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 20,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "baboelf@dbinc.co.k",
+      "username": "김환",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 21,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "tjs1245@dbinc.co.kr",
+      "username": "김희선",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 22,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "hmryu@dbinc.co.kr",
+      "username": "류현민",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 23,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "kiyoung.park@dbinc.co.kr",
+      "username": "박기영",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 24,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "skpark@dbinc.co.kr",
+      "username": "박상균",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 25,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "sjpark0513@dbinc.co.kr",
+      "username": "박성진",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 26,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "acejun@dbinc.co.k",
+      "username": "박준",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 27,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "chbae42@dbinc.co.kr",
+      "username": "배충현",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 28,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "ryan@dbinc.co.kr",
+      "username": "서인교",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 29,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "songym@dbinc.co.kr",
+      "username": "송영문",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 30,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "s0215@dbinc.co.kr",
+      "username": "신혁철",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 31,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "dh.yang@dbinc.co.kr",
+      "username": "양동현",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 32,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "ohk1@dbinc.co.kr",
+      "username": "오현규",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 33,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "vintage0511@dbinc.co.kr",
+      "username": "이광재",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 34,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "sylee@dbinc.co.kr",
+      "username": "이소연",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 35,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "oklee@dbinc.co.kr",
+      "username": "이옥근",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 36,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "yurilee@dbinc.co.kr",
+      "username": "이유리",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 37,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "sklim@dbinc.co.kr",
+      "username": "임성균",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 38,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "limga612@dbinc.co.kr",
+      "username": "임현주",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 39,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "seamelody@dbinc.co.kr",
+      "username": "장창환",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 40,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "jjh0708@dbinc.co.kr",
+      "username": "정준혁",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 41,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "jhuonogn@dbinc.co.k",
+      "username": "정훈",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 42,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "hyanghanjoo@dbinc.co.kr",
+      "username": "주향한",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 43,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "days365@dbinc.co.kr",
+      "username": "천혜선",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 44,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "yschoi@dbinc.co.kr",
+      "username": "최영수",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 45,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "cjw@dbinc.co.kr",
+      "username": "최재우",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 46,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "hschoi@dbinc.co.kr",
+      "username": "최현석",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 47,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "chj5945@dbinc.co.kr",
+      "username": "최효재",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 48,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "apple0910@dbinc.co.kr",
+      "username": "황희재",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        8
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 49,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "km444@dbinc.co.kr",
+      "username": "김광섭",
+      "first_name": "",
+      "last_name": "",
+      "position": "LEADER",
+      "groups": [
+        9
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 50,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "ksoyeon@dbinc.co.kr",
+      "username": "강소연",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        9
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 51,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "kayun@dbinc.co.kr",
+      "username": "윤경애",
+      "first_name": "",
+      "last_name": "",
+      "position": "LEADER",
+      "groups": [
+        10
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 52,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "kso1322@dbinc.co.kr",
+      "username": "강성오",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        10
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 53,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "younghoji@dbinc.co.k",
+      "username": "조현",
+      "first_name": "",
+      "last_name": "",
+      "position": "LEADER",
+      "groups": [
+        11
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 54,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "bgkang@dbinc.co.kr",
+      "username": "강병구",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        11
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 55,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "ehshin25@dbinc.co.kr",
+      "username": "신은하",
+      "first_name": "",
+      "last_name": "",
+      "position": "MANAGER",
+      "groups": [
+        12,
+        14
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 56,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": true,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "iskoh@dbinc.co.kr",
+      "username": "고인수",
+      "first_name": "",
+      "last_name": "",
+      "position": "MPM",
+      "groups": [
+        13
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 57,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "syn0211@dbinc.co.kr",
+      "username": "서유나",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        13
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 58,
+    "fields": {
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_leader": false,
+      "is_active": true,
+      "date_joined": "2025-01-01T09:00:00.000",
+      "password": "pbkdf2_sha256$1000000$l6iq5x20oKyiVg44ODAAto$iH38UJjtApbYXZujlFtPePJaAVEVpk27g4uHsSQ+1FE=",
+      "email": "dukikim@dbinc.co.kr",
+      "username": "김두기",
+      "first_name": "",
+      "last_name": "",
+      "position": "PRO",
+      "groups": [
+        14
+      ],
+      "user_permissions": []
+    }
+  }
+]

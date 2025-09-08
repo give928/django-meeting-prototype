@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>회의</title>
+    {% include "layout/header-stylesheet.html" %}
+</head>
+<body>
+{% include "layout/body-color-modes.html" %}
+{% include "layout/header.html" %}
+<main class="container">
+{% block content %}{% endblock %}
+</main>
+{% include "layout/body-javascript.html" %}
+</body>
+</html>
