@@ -3,6 +3,12 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 
+import logging
+
+from common.utils import get_client_ip
+
+logger = logging.getLogger('django')
+
 
 def sign_in(request):
     if request.user.is_authenticated:
@@ -15,8 +21,13 @@ def sign_in(request):
 
         if form.is_valid():
             login(request, form.get_user())
+            logger.info('User Signed in [%s] %s', get_client_ip(request), username)
+            next_url = request.GET.get('next')
+            if next_url:
+                return response_cookie(redirect(next_url), remember, username)
             return response_cookie(redirect('home'), remember, username)
 
+        logger.warning('Failed to sign in [%s] %s', get_client_ip(request), username)
         form.initial = {'username': username if remember else None}
         http_response = render(request, 'sign-in.html', {'form': form})
         return response_cookie(http_response, remember, username)

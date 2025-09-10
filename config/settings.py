@@ -199,3 +199,6 @@ LOGGING = {
         },
     }
 }
+
+# login
+LOGIN_URL = '/sign-in/'
