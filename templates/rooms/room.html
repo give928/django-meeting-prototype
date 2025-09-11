@@ -1,0 +1,47 @@
+{% extends "layout/base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h1>회의실</h1>
+    <hr class="my-4">
+    <div class="row">
+        <form class="needs-validation" id="room-form" method="POST" novalidate>
+            {% csrf_token %}
+            <input type="hidden" id="_method" name="_method" value="{{ form.instance.pk|yesno:'PUT,' }}"/>
+            {% comment %}{% bootstrap_form form exclude='is_active' %}{% endcomment %}
+            {% bootstrap_field form.name layout='floating' %}
+            {% bootstrap_field form.description layout='floating' %}
+            {% bootstrap_field form.capacity layout='floating' %}
+            {% bootstrap_field form.has_monitor layout='floating' %}
+            {% bootstrap_field form.has_microphone layout='floating' %}
+            <hr class="my-4">
+            <div class="btn-group w-100 align-items-center justify-content-between flex-wrap me-0">
+                <div>
+                    {% if form.instance.pk != None %}
+                        {% bootstrap_button button_type="submit" button_class="btn-danger" id="delete-button" content="삭제" %}
+                    {% endif %}
+                    {% url 'rooms' as rooms_link %}{% bootstrap_button button_type="reset" button_class="btn-success" content="초기화" %}
+                </div>
+                <div>
+                    {% bootstrap_button button_type="submit" button_class="btn-primary" content="저장" %}
+                    {% bootstrap_button button_type="link" button_class="btn-secondary" href=rooms_link content="목록" %}
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        (function () {
+            'use strict'
+
+            const deleteButton = document.querySelector("#delete-button");
+            deleteButton.addEventListener('click', evt => {
+                evt.preventDefault();
+
+                if (!confirm('삭제 하시겠습니까?')) {
+                    return;
+                }
+                document.querySelector('input[name="_method"]').value = 'DELETE';
+                document.querySelector('#room-form').submit();
+            });
+        })();
+    </script>
+{% endblock %}

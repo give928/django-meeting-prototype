@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'django.contrib.humanize',
     'common.apps.CommonConfig',
+    'rooms.apps.RoomsConfig',
 ]
 
 MIDDLEWARE = [

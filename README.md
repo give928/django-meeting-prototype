@@ -80,6 +80,20 @@ Superuser created successfully.
 
 $ python manage.py loaddata accounts/fixtures/*
 Installed 87 object(s) from 3 fixture(s)
+
+$ mkdir logs
+
+$ pip install django-bootstrap5
+
+$ python manage.py startapp common
+
+$ python manage.py startapp rooms
+
+$ python manage.py makemigrations rooms
+
+$ python manage.py makemigrations rooms
+
+$ python manage.py migrate rooms
 ```
 
 ---
@@ -91,6 +105,7 @@ Installed 87 object(s) from 3 fixture(s)
 ## 🛠️ Contents
 
 - [x] 로그인
+- [x] 회의실
 - [ ] 회의
   - [ ] 예약
   - [ ] 녹음
