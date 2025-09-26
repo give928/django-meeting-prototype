@@ -1,0 +1,98 @@
+[
+  {
+    "model": "rooms.room",
+    "pk": 1,
+    "fields": {
+      "created_user": 18,
+      "created_date": "2025-01-01T09:00:00.000",
+      "last_modified_user": 18,
+      "last_modified_date": "2025-01-01T09:00:00.000",
+      "name": "1회의실",
+      "description": null,
+      "capacity": 40,
+      "has_monitor": true,
+      "has_microphone": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 2,
+    "fields": {
+      "created_user": 18,
+      "created_date": "2025-01-01T09:00:00.000",
+      "last_modified_user": 18,
+      "last_modified_date": "2025-01-01T09:00:00.000",
+      "name": "2회의실",
+      "description": null,
+      "capacity": 20,
+      "has_monitor": true,
+      "has_microphone": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 3,
+    "fields": {
+      "created_user": 18,
+      "created_date": "2025-01-01T09:00:00.000",
+      "last_modified_user": 18,
+      "last_modified_date": "2025-01-01T09:00:00.000",
+      "name": "3회의실",
+      "description": null,
+      "capacity": 20,
+      "has_monitor": false,
+      "has_microphone": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 4,
+    "fields": {
+      "created_user": 18,
+      "created_date": "2025-01-01T09:00:00.000",
+      "last_modified_user": 18,
+      "last_modified_date": "2025-01-01T09:00:00.000",
+      "name": "4회의실",
+      "description": null,
+      "capacity": 10,
+      "has_monitor": true,
+      "has_microphone": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 5,
+    "fields": {
+      "created_user": 18,
+      "created_date": "2025-01-01T09:00:00.000",
+      "last_modified_user": 18,
+      "last_modified_date": "2025-01-01T09:00:00.000",
+      "name": "5회의실",
+      "description": null,
+      "capacity": 10,
+      "has_monitor": false,
+      "has_microphone": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 6,
+    "fields": {
+      "created_user": 18,
+      "created_date": "2025-01-01T09:00:00.000",
+      "last_modified_user": 18,
+      "last_modified_date": "2025-01-01T09:00:00.000",
+      "name": "6회의실",
+      "description": null,
+      "capacity": 8,
+      "has_monitor": true,
+      "has_microphone": true,
+      "is_active": true
+    }
+  }
+]

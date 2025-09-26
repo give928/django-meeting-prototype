@@ -90,10 +90,18 @@ $ python manage.py startapp common
 $ python manage.py startapp rooms
 
 $ python manage.py makemigrations rooms
-
-$ python manage.py makemigrations rooms
+Migrations for 'rooms':
+  rooms/migrations/0001_initial.py
+    + Create model Room
 
 $ python manage.py migrate rooms
+Operations to perform:
+  Apply all migrations: rooms
+Running migrations:
+  Applying rooms.0001_initial... O
+
+$ python manage.py loaddata rooms/fixtures/*
+Installed 6 object(s) from 1 fixture(s)
 ```
 
 ---
