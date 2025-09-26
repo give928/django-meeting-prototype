@@ -102,6 +102,19 @@ Running migrations:
 
 $ python manage.py loaddata rooms/fixtures/*
 Installed 6 object(s) from 1 fixture(s)
+
+$ pip install django-mptt
+Collecting django-mptt
+  Downloading django_mptt-0.18.0-py3-none-any.whl.metadata (5.3 kB)
+Collecting django-js-asset (from django-mptt)
+  Downloading django_js_asset-3.1.2-py3-none-any.whl.metadata (6.4 kB)
+Requirement already satisfied: django>=4.2 in ./.venv/lib/python3.13/site-packages (from django-js-asset->django-mptt) (5.2.4)
+Requirement already satisfied: asgiref>=3.8.1 in ./.venv/lib/python3.13/site-packages (from django>=4.2->django-js-asset->django-mptt) (3.9.1)
+Requirement already satisfied: sqlparse>=0.3.1 in ./.venv/lib/python3.13/site-packages (from django>=4.2->django-js-asset->django-mptt) (0.5.3)
+Downloading django_mptt-0.18.0-py3-none-any.whl (120 kB)
+Downloading django_js_asset-3.1.2-py3-none-any.whl (5.9 kB)
+Installing collected packages: django-js-asset, django-mptt
+Successfully installed django-js-asset-3.1.2 django-mptt-0.18.0
 ```
 
 ---

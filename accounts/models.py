@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 
 from .validators import UnicodeEmailValidator
 
@@ -45,9 +47,9 @@ class User(AbstractUser):
         db_table = 'auth_user'
 
 
-class Department(models.Model):
+class Department(MPTTModel):
     group = models.OneToOneField(Group, on_delete=models.CASCADE, primary_key=True)
-    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.SET_NULL, verbose_name='parent')
+    parent = TreeForeignKey('self', blank=True, null=True, on_delete=models.SET_NULL, related_name='children', db_index=True, verbose_name='parent')
     is_active = models.BooleanField(default=True, verbose_name='enable')
     order = models.IntegerField(default=1, verbose_name='order')
 
@@ -61,3 +63,7 @@ class Department(models.Model):
 
     class Meta:
         db_table = 'auth_department'
+        # ordering = ['tree_id', 'lft']
+
+    class MPTTMeta:
+        order_insertion_by = ['order', 'group']

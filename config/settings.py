@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'common.apps.CommonConfig',
     'rooms.apps.RoomsConfig',
+    'mptt',
 ]
 
 MIDDLEWARE = [
