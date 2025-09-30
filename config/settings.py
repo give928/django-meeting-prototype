@@ -166,12 +166,12 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
         },
         'django.server': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'django.server',
         },
@@ -193,8 +193,12 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'mail_admins', 'file'],
+            'handlers': ['mail_admins', 'file'],
             'level': 'INFO',
+        },
+        "django.db.backends": {
+            "handlers": ["console"],
+            "level": "DEBUG",
         },
         'django.server': {
             'handlers': ['django.server'],
