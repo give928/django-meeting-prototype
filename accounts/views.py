@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -20,9 +21,12 @@ def sign_in(request):
         username = request.POST.get('username')
 
         if form.is_valid():
-            login(request, form.get_user())
+            user = form.get_user()
+            last_login = user.last_login
+            login(request, user)
             logger.info('User Signed in [%s] %s', get_client_ip(request), username)
             next_url = request.GET.get('next')
+            messages.success(request, f'{user} 님, 환영합니다!\n마지막 로그인: {last_login.strftime("%Y년 %m월 %d일 %H시 %M분 %S초")}')
             if next_url:
                 return response_cookie(redirect(next_url), remember, username)
             return response_cookie(redirect('home'), remember, username)
