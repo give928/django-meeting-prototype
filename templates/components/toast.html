@@ -1,0 +1,28 @@
+{% if messages %}
+    {% for message in messages %}
+        {% if forloop.first %}
+<div class="toast-container position-fixed{% if message.tags == 'success' or message.tags == 'info' %} mt-5 top-0{% else %} mb-5 bottom-0{% endif %} end-0 p-3">
+    <div class="toast-container position-static">
+        {% endif %}
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <svg aria-hidden="true" class="bd-placeholder-img rounded me-2" height="20" preserveAspectRatio="xMidYMid slice" width="20" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="{% if message.tags == 'error' %}#ff3b30{% elif message.tags == 'warning' %}#ff9500{% else %}#007aff{% endif %}"></rect></svg>
+                <strong class="me-auto">알림</strong>
+                <small>{% now "Y/m/d H:i:s" %}</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">{{ message }}</div>
+        </div>
+        {% if forloop.last %}
+    </div>
+</div>
+        {% endif %}
+    {% endfor %}
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.toast').forEach(toast => {
+            bootstrap.Toast.getOrCreateInstance(toast).show();
+        })
+    });
+</script>
+{% endif %}
