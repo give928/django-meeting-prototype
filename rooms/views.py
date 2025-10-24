@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -37,6 +38,7 @@ class RoomView(LoginRequiredMixin, View):
             room.last_modified_user_id = request.user.pk
             room.last_modified_date = timezone.now()
             room.save()
+            messages.success(request, '회의실이 등록되었습니다.')
             return redirect('rooms')
         return render(request, self.template_name, {'form': form})
 
@@ -50,6 +52,7 @@ class RoomView(LoginRequiredMixin, View):
             room.last_modified_date = timezone.now()
             update_fields = ['name', 'description', 'capacity', 'has_monitor', 'has_microphone', 'last_modified_user_id', 'last_modified_date']
             room.save(update_fields=update_fields)
+            messages.success(request, '회의실이 수정되었습니다.')
             return redirect('rooms')
         return render(request, self.template_name, {'form': form})
 
@@ -61,4 +64,5 @@ class RoomView(LoginRequiredMixin, View):
         room.last_modified_date = timezone.now()
         update_fields = ['is_active', 'last_modified_user_id', 'last_modified_date']
         room.save(update_fields=update_fields)
+        messages.success(request, '회의실이 삭제되었습니다.')
         return redirect('rooms')
