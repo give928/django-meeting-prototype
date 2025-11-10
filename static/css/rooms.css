@@ -1,0 +1,8 @@
+.scrollspy-room {
+    min-height: 6em;
+    max-height: 6em;
+}
+
+.scrollspy-room .room-description {
+    font-size: .875em;
+}

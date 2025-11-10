@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>회의</title>
     {% include "layout/header-stylesheet.html" %}
+    {% block extra_styles %}{% endblock %}
 </head>
 <body>
 {% include "layout/body-color-modes.html" %}
@@ -13,7 +14,8 @@
 <main class="container">
 {% block content %}{% endblock %}
 </main>
-{% include "layout/body-javascript.html" %}
 {% include "components/toast.html" %}
+{% include "layout/body-javascript.html" %}
+{% block extra_scripts %}{% endblock %}
 </body>
 </html>

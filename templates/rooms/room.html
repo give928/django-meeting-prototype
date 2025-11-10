@@ -4,15 +4,16 @@
     <h1>회의실</h1>
     <hr class="my-4">
     <div class="row">
-        <form class="needs-validation" id="room-form" method="POST" novalidate>
+        <form class="needs-validation row" id="room-form" method="POST" novalidate>
             {% csrf_token %}
             <input type="hidden" id="_method" name="_method" value="{{ form.instance.pk|yesno:'PUT,' }}"/>
             {% comment %}{% bootstrap_form form exclude='is_active' %}{% endcomment %}
             {% bootstrap_field form.name layout='floating' %}
             {% bootstrap_field form.description layout='floating' %}
-            {% bootstrap_field form.capacity layout='floating' %}
-            {% bootstrap_field form.has_monitor layout='floating' %}
-            {% bootstrap_field form.has_microphone layout='floating' %}
+            {% bootstrap_field form.seat_count layout='floating' wrapper_class='col-md-2 mb-3' %}
+            {% bootstrap_field form.capacity_count layout='floating' wrapper_class='col-md-2 mb-3' %}
+            {% bootstrap_field form.has_monitor layout='floating' wrapper_class='col-md-1 mb-3' %}
+            {% bootstrap_field form.has_microphone layout='floating' wrapper_class='col-md-1 mb-3' %}
             <hr class="my-4">
             <div class="btn-group w-100 align-items-center justify-content-between flex-wrap me-0">
                 <div>

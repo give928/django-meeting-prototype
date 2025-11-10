@@ -9,7 +9,8 @@
       "last_modified_date": "2025-01-01T09:00:00.000",
       "name": "1회의실",
       "description": null,
-      "capacity": 40,
+      "seat_count": 40,
+      "capacity_count": 60,
       "has_monitor": true,
       "has_microphone": true,
       "is_active": true
@@ -25,7 +26,8 @@
       "last_modified_date": "2025-01-01T09:00:00.000",
       "name": "2회의실",
       "description": null,
-      "capacity": 20,
+      "seat_count": 20,
+      "capacity_count": 30,
       "has_monitor": true,
       "has_microphone": true,
       "is_active": true
@@ -41,7 +43,8 @@
       "last_modified_date": "2025-01-01T09:00:00.000",
       "name": "3회의실",
       "description": null,
-      "capacity": 20,
+      "seat_count": 20,
+      "capacity_count": 30,
       "has_monitor": false,
       "has_microphone": false,
       "is_active": true
@@ -57,7 +60,8 @@
       "last_modified_date": "2025-01-01T09:00:00.000",
       "name": "4회의실",
       "description": null,
-      "capacity": 10,
+      "seat_count": 10,
+      "capacity_count": 10,
       "has_monitor": true,
       "has_microphone": true,
       "is_active": true
@@ -73,7 +77,8 @@
       "last_modified_date": "2025-01-01T09:00:00.000",
       "name": "5회의실",
       "description": null,
-      "capacity": 10,
+      "seat_count": 10,
+      "capacity_count": 10,
       "has_monitor": false,
       "has_microphone": false,
       "is_active": true
@@ -89,7 +94,8 @@
       "last_modified_date": "2025-01-01T09:00:00.000",
       "name": "6회의실",
       "description": null,
-      "capacity": 8,
+      "seat_count": 8,
+      "capacity_count": 8,
       "has_monitor": true,
       "has_microphone": true,
       "is_active": true
