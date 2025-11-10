@@ -1,14 +1,14 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 
-import logging
+from common.utils import RequestUtils
 
-from common.utils import get_client_ip
-
-logger = logging.getLogger('django')
+logger = logging.getLogger(__name__)
 
 
 def sign_in(request):
@@ -24,14 +24,17 @@ def sign_in(request):
             user = form.get_user()
             last_login = user.last_login
             login(request, user)
-            logger.info('User Signed in [%s] %s', get_client_ip(request), username)
+            logger.info('User Signed in [%s] %s', RequestUtils.get_client_ip(request), username)
             next_url = request.GET.get('next')
-            messages.success(request, f'{user} 님, 환영합니다!\n마지막 로그인: {last_login.strftime("%Y년 %m월 %d일 %H시 %M분 %S초")}')
+            if last_login is not None:
+                messages.success(request, f'{user} 님, 환영합니다!\n마지막 로그인: {last_login.astimezone().strftime("%Y년 %m월 %d일 %H시 %M분 %S초")}')
+            else:
+                messages.success(request, f'{user} 님, 환영합니다!')
             if next_url:
                 return response_cookie(redirect(next_url), remember, username)
             return response_cookie(redirect('home'), remember, username)
 
-        logger.warning('Failed to sign in [%s] %s', get_client_ip(request), username)
+        logger.warning('Failed to sign in [%s] %s', RequestUtils.get_client_ip(request), username)
         form.initial = {'username': username if remember else None}
         http_response = render(request, 'sign-in.html', {'form': form})
         return response_cookie(http_response, remember, username)

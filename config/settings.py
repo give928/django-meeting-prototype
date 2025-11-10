@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8vhs(g=qi43$d0!gn_3a@d)xt8s=u!1+xwbod6)qlq0m(2#tzo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = []
 
@@ -73,6 +73,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
@@ -115,7 +116,7 @@ TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -132,6 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -153,6 +155,9 @@ LOGGING = {
         'require_debug_true': {
             '()': 'django.utils.log.RequireDebugTrue',
         },
+        'ignore_noise': {
+            '()': 'config.filters.IgnoreNoiseRequestsFilter',
+        },
     },
     'formatters': {
         'django.server': {
@@ -165,20 +170,17 @@ LOGGING = {
         },
     },
     'handlers': {
-        'console': {
+        'console_dev': {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
+            'formatter': 'standard',
         },
-        'django.server': {
+        'console_prod': {
             'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'django.server',
-        },
-        'mail_admins': {
-            'level': 'ERROR',
             'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
         },
         'file': {
             'level': 'INFO',
@@ -190,15 +192,32 @@ LOGGING = {
             'backupCount': 10,
             'formatter': 'standard',
         },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+            'filters': ['require_debug_true', 'ignore_noise'],
+        },
+    },
+    'root': {
+        'handlers': ['console_dev' if DEBUG else 'console_prod'],
+        'level': 'DEBUG' if DEBUG else 'INFO',
     },
     'loggers': {
         'django': {
             'handlers': ['mail_admins', 'file'],
             'level': 'INFO',
+            'propagate': True,
         },
         "django.db.backends": {
-            "handlers": ["console"],
-            "level": "DEBUG",
+            "handlers": ['console_dev' if DEBUG else 'console_prod'],
+            "level": 'DEBUG' if DEBUG else 'INFO',
+            'propagate': False,
         },
         'django.server': {
             'handlers': ['django.server'],
