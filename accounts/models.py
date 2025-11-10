@@ -34,14 +34,17 @@ class User(AbstractUser):
     is_superuser = models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')
     is_staff = models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')
     is_leader = models.BooleanField(default=False, help_text='Designates whether the user is a leader on the team.', verbose_name='leader status')
-    is_active = models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')
+    is_active = models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.',
+                                    verbose_name='active')
     date_joined = models.DateTimeField(default=datetime.now, verbose_name="date joined")
     last_login = models.DateTimeField(blank=True, null=True, verbose_name='last login')
-    groups = models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')
-    user_permissions = models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')
+    groups = models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                                    related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')
+    user_permissions = models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission',
+                                              verbose_name='user permissions')
 
     def __str__(self):
-        return f"{self.username} ({self.email})"
+        return f"{self.username}"
 
     class Meta:
         db_table = 'auth_user'

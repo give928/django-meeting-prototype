@@ -1,11 +1,13 @@
-import logging
-
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 
+import logging
+
+from accounts.caches import DepartmentCache
 from common.utils import RequestUtils
 
 logger = logging.getLogger(__name__)
@@ -54,3 +56,13 @@ def response_cookie(http_response, remember, username):
 def sign_out(request):
     auth_logout(request)
     return redirect('sign-in')
+
+
+@login_required(login_url='sign-in')
+def departments(request):
+    return render(
+        request,
+        'accounts/departments.html',
+        {
+            'departments': DepartmentCache.find(is_active=True)
+        })

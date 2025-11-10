@@ -88,3 +88,10 @@ body {
 .toast-body {
     white-space: pre-line
 }
+
+.tree-toggle-button {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+}
