@@ -17,8 +17,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ room.name }}{% if room.has_monitor %}&nbsp;🖥{% endif %}{% if room.has_microphone %}&nbsp;🎤{% endif %}</h5>
                         <div data-bs-spy="scroll" data-bs-offset="0" class="card-text position-relative overflow-auto scrollspy-room" tabindex="0">
-                            <p class="room-description mb-0">좌석:&nbsp;{{ room.seat_count|intcomma }}</p>
-                            <p class="room-description mb-1">수용:&nbsp;{{ room.capacity_count|intcomma }}</p>
+                            <p class="room-content mb-0">좌석:&nbsp;{{ room.seat_count|intcomma }}</p>
+                            <p class="room-content mb-1">수용:&nbsp;{{ room.capacity_count|intcomma }}</p>
                             {% if room.description %}<pre>{{ room.description }}</pre>{% endif %}
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-2">
