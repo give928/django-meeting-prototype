@@ -10,3 +10,11 @@ class RequestUtils:
         else:
             ip = request.META.get('REMOTE_ADDR')
         return ip
+
+    @staticmethod
+    def get_page(request: WSGIRequest) -> int:
+        try:
+            page = request.GET.get('page', '1')
+            return int(page)
+        except Exception as e:
+            return 1
