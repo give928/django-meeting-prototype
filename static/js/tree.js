@@ -1,12 +1,14 @@
 const tree = function (options) {
     this.options = Object.assign({
+            readonly: true,
             wrapperElement: null,
             toggleButtonSelector: 'a.tree-toggle-button',
             expandButtonSelector: 'a#tree-expand-button',
             collapseButtonSelector: 'a#tree-collapse-button',
             internalCheckboxSelector: 'input.check-internal[type="checkbox"]',
             leafCheckboxSelector: 'input.check-leaf[type="checkbox"]',
-            parentAttribute: 'data-parent-id'
+            parentAttribute: 'data-parent-id',
+            checkValidator: (count) => true
         },
         options);
 
@@ -15,19 +17,25 @@ const tree = function (options) {
             return;
         }
 
-        const _self = this;
+        this.initializeTree();
 
+        this.initializeCheckbox();
+
+        this.initializeParentCheckbox();
+    };
+
+    this.initializeTree = () => {
         this.options.wrapperElement.querySelectorAll(this.options.toggleButtonSelector)
             .forEach(button => {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
 
-                    _self.toggle(event.target);
+                    this.toggle(event.target);
                 });
                 button.addEventListener('keypress', (event) => {
                     event.preventDefault();
 
-                    _self.toggle(event.target);
+                    this.toggle(event.target);
                 });
             });
 
@@ -36,11 +44,11 @@ const tree = function (options) {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
 
-                    _self.options.wrapperElement.querySelectorAll(_self.options.toggleButtonSelector)
+                    this.options.wrapperElement.querySelectorAll(this.options.toggleButtonSelector)
                         .forEach(toggleButton => {
                             console.log(toggleButton.innerText);
                             if (toggleButton.innerText === '+') {
-                                _self.toggle(toggleButton);
+                                this.toggle(toggleButton);
                             }
                         });
                 });
@@ -51,49 +59,82 @@ const tree = function (options) {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
 
-                    Array.from(_self.options.wrapperElement.querySelectorAll(_self.options.toggleButtonSelector))
+                    Array.from(this.options.wrapperElement.querySelectorAll(this.options.toggleButtonSelector))
                         .reverse()
                         .forEach(toggleButton => {
                             if (toggleButton.innerText !== '+') {
-                                _self.toggle(toggleButton);
+                                this.toggle(toggleButton);
                             }
                         });
                 });
             });
+    };
 
+    this.initializeCheckbox = () => {
         this.options.wrapperElement.querySelectorAll(this.options.internalCheckboxSelector)
             .forEach(checkbox => {
-                checkbox.addEventListener('change', (event) => {
-                    _self.checkChildren(event.target.parentElement, event.target.checked);
-                    _self.updateParent(event.target.parentElement, true);
-                });
+                if (this.options.readonly) {
+                    this.readonlyCheckbox(checkbox);
+                } else {
+                    checkbox.addEventListener('change', (event) => {
+                        if (typeof this.options.checkValidator === 'function') {
+                            const checkedCount = this.getCheckedCount();
+                            const innerChecked = event.target.parentElement.querySelectorAll(this.options.leafCheckboxSelector + ':checked');
+                            const inner = event.target.parentElement.querySelectorAll(this.options.leafCheckboxSelector);
+                            if (!this.options.checkValidator(checkedCount - innerChecked.length + inner.length)) {
+                                event.target.checked = !event.target.checked;
+                            }
+                        }
+                        this.checkChildren(event.target.parentElement, event.target.checked);
+                        this.updateParent(event.target.parentElement, true);
+                    });
+                }
             });
 
         this.options.wrapperElement.querySelectorAll(this.options.leafCheckboxSelector)
             .forEach(checkbox => {
-                checkbox.addEventListener('change', (event) => {
-                    _self.updateParentFromChild(event.target);
-                });
+                if (this.options.readonly) {
+                    this.readonlyCheckbox(checkbox);
+                } else {
+                    checkbox.addEventListener('change', (event) => {
+                        if (typeof this.options.checkValidator === 'function') {
+                            const checked = this.options.wrapperElement.querySelectorAll(this.options.leafCheckboxSelector + ':checked');
+                            if (!this.options.checkValidator(checked.length)) {
+                                event.target.checked = !event.target.checked;
+                            }
+                        }
+                        this.updateParentFromChild(event.target);
+                    });
+                }
             });
+    };
 
+    this.readonlyCheckbox = (checkbox) => {
+        checkbox.setAttribute('readonly', true);
+        checkbox.addEventListener('click', (event) => {
+            event.target.checked = !event.target.checked;
+            return false;
+        });
+    };
+
+    this.initializeParentCheckbox = () => {
         Array.from(this.options.wrapperElement.querySelectorAll(this.options.internalCheckboxSelector))
             .reverse()
             .forEach(checkbox => {
                 const section = checkbox.parentElement;
-                _self.updateParent(section, false);
+                this.updateParent(section, false);
                 const count = section.querySelector('span.count');
                 if (count !== null) {
-                    count.innerText = section.querySelectorAll(_self.options.leafCheckboxSelector).length;
+                    count.innerText = section.querySelectorAll(this.options.leafCheckboxSelector).length;
                 }
                 const checkedCount = section.querySelector('span.checked_count');
                 if (checkedCount === null) {
                     return;
                 }
                 if (checkedCount.innerText > 0 && section.querySelector(':scope > ul').classList.contains('d-none')) {
-                    section.querySelector(':scope > ul').classList.toggle('d-none');
+                    this.toggle(section.querySelector(':scope > ' + this.options.toggleButtonSelector));
                 }
             });
-
     };
 
     this.toggle = (element) => {
@@ -185,6 +226,10 @@ const tree = function (options) {
             return;
         }
         section.querySelector('span.checked_count').innerText = section.querySelectorAll(this.options.leafCheckboxSelector + ':checked').length;
+    };
+
+    this.getCheckedCount = () => {
+        return this.options.wrapperElement.querySelectorAll(this.options.leafCheckboxSelector + ':checked').length;
     };
 
     this.initialize();

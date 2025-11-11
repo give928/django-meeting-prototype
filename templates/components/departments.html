@@ -1,6 +1,6 @@
 {% load mptt_tags %}
 {% load static %}
-<div id="hierarchical-department">
+<div id="hierarchical-departments">
     <div>
         <a id="tree-expand-button" class="btn btn-secondary" href="#" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
@@ -25,15 +25,15 @@
 <a class="link-underline-opacity-0 link-warning tree-toggle-button" href="#" role="button">
     {% if node.is_leaf_node %}+{% else %}-{% endif %}
 </a>
-<input type="checkbox" class="form-check-input department{% if visibleCheckboxes != True %} d-none{% endif %}" data-group-id="{{ node.parent_id }}" id="department-{{ node.group_id }}" value="{{ node.group_id }}"/>
+<input type="checkbox" class="form-check-input department{% if visible_checkboxes != True %} d-none{% endif %}" data-group-id="{{ node.parent_id }}" id="department-{{ node.group_id }}" value="{{ node.group_id }}"/>
 <label class="form-check-label" for="department-{{ node.group_id }}">{{ node.group.name }}</label>
-    ({% if visibleCheckboxes == True %}<span class="checked_count">0</span>/{% endif %}<span class="count">0</span>)
+    ({% if visible_checkboxes == True %}<span class="checked_count">0</span>/{% endif %}<span class="count">0</span>)
     {% if node.group.user_set.count > 0 %}
 <ul class="ms-4 p-0{% if node.is_leaf_node %} d-none{% endif %}">
             {% for user in node.group.user_set.all %}
     <li class="list-group-item">
         <span class="tree-toggle-button"></span>
-        <input type="checkbox" class="form-check-input user{% if visibleCheckboxes != True %} d-none{% endif %}" data-group-id="{{ node.group_id }}" id="user-{{ user.id }}" name="{{ user_input_name }}" value="{{ user.id }}"{% if user.id in checked_users %} checked="checked"{% endif %}/>
+        <input type="checkbox" class="form-check-input user{% if visible_checkboxes != True %} d-none{% endif %}" data-group-id="{{ node.group_id }}" id="user-{{ user.id }}" name="{{ user_input_name }}" value="{{ user.id }}"{% if user.id in checked_users %} checked="checked"{% endif %}/>
         <label class="form-check-label" for="user-{{ user.id }}">{{ user }}</label>
     </li>
             {% endfor %}
@@ -42,11 +42,14 @@
     {% for level in structure.closed_levels %}</li></ul>{% endfor %}
 {% endfor %}
 </div>
+{% block extra_scripts %}
 <script type="text/javascript" src="{% static "js/tree.js" %}"></script>
+{% if auto_initialize != False %}
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", ()=> {
         new tree({
-            wrapperElement: document.querySelector('#hierarchical-department'),
+            readonly: {% if readonly %}true{% else %}false{% endif %},
+            wrapperElement: document.querySelector('#hierarchical-departments'),
             toggleButtonSelector: 'a.tree-toggle-button',
             expandButtonSelector: 'a#tree-expand-button',
             collapseButtonSelector: 'a#tree-collapse-button',
@@ -56,3 +59,5 @@
         });
     });
 </script>
+{% endif %}
+{% endblock %}
