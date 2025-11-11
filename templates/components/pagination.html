@@ -1,0 +1,58 @@
+{% if pagination.paginator.num_pages > 1 %}
+    {% load range_tags %}
+    <nav aria-label="Reservation pagination" class="mt-3">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not pagination.has_previous %}disabled{% endif %}">
+                {% if pagination.has_previous %}
+                    <a class="page-link" href="?page={{ pagination.previous_page_number }}" aria-label="Previous">&laquo;</a>
+                {% else %}
+                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                {% endif %}
+            </li>
+            {% with total=pagination.paginator.num_pages current=pagination.number %}
+                {% if total <= 7 %}
+                    {% for i in 1|inclusive_range:total %}
+                        <li class="page-item {% if i == current %}active{% endif %}">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    {% if current <= 4 %}
+                        {% for i in 1|inclusive_range:5 %}
+                            <li class="page-item {% if i == current %}active{% endif %}">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                        <li class="page-item disabled"><span class="page-link">…</span></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ total }}">{{ total }}</a></li>
+                    {% elif current >= total|add:-3 %}
+                        <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                        <li class="page-item disabled"><span class="page-link">…</span></li>
+                        {% for i in total|add:-4|inclusive_range:total %}
+                            <li class="page-item {% if i == current %}active{% endif %}">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                        <li class="page-item disabled"><span class="page-link">…</span></li>
+                        {% for i in current|add:-1|inclusive_range:current|add:1 %}
+                            <li class="page-item {% if i == current %}active{% endif %}">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                        <li class="page-item disabled"><span class="page-link">…</span></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ total }}">{{ total }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endwith %}
+            <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                {% if pagination.has_next %}
+                    <a class="page-link" href="?page={{ pagination.next_page_number }}" aria-label="Next">&raquo;</a>
+                {% else %}
+                    <span class="page-link" aria-hidden="true">&raquo;</span>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+{% endif %}
