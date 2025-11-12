@@ -18,8 +18,7 @@ class RoomCache:
             logger.debug('Cache hit rooms')
         except Exception as e:
             logger.debug('Cache miss rooms')
-            rooms = (Room.objects
-                           .all())
+            rooms = (Room.objects.all())
             cache.set(RoomCache.KEY, rooms, 600)
             logger.debug('Cache set rooms: %s', rooms is not None)
 
@@ -27,3 +26,7 @@ class RoomCache:
             rooms = rooms.filter(is_active=True)
 
         return rooms
+
+    @classmethod
+    def clear(cls):
+        cache.delete(RoomCache.KEY)
