@@ -7,47 +7,10 @@
             <div class="modal-body">정말 실행하시겠습니까?</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary btn-ok">확인</button>
+                <button type="button" class="btn btn-ok">확인</button>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function showConfirm({title = '확인', message = ''} = {}) {
-        return new Promise((resolve) => {
-            const modalContainer = document.getElementById('modalContainer');
-            const modal = bootstrap.Modal.getOrCreateInstance(modalContainer);
-
-            const okBtn = modalContainer.querySelector('.btn-ok');
-            const cancelBtn = modalContainer.querySelector('.btn-cancel');
-
-            modalContainer.querySelector('.modal-title').textContent = title;
-            modalContainer.querySelector('.modal-body').innerHTML = message;
-
-            const handleOk = () => {
-                resolve(true);
-                cleanup();
-                modal.hide();
-            };
-
-            const handleCancel = () => {
-                resolve(false);
-                cleanup();
-            };
-
-            okBtn.addEventListener('click', handleOk);
-            cancelBtn.addEventListener('click', handleCancel);
-
-            const cleanup = () => {
-                okBtn.removeEventListener('click', handleOk);
-                cancelBtn.removeEventListener('click', handleCancel);
-                modalContainer.removeEventListener('hidden.bs.modal', cleanup);
-                modalContainer.querySelectorAll('button').forEach(btn => btn.blur());
-            };
-
-            modalContainer.addEventListener('hidden.bs.modal', cleanup, {once: true});
-
-            modal.show();
-        });
-    }
-</script>
+{% load static %}
+<script type="text/javascript" src="{% static "js/confirm.js" %}"></script>
