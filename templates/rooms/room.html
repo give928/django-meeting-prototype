@@ -18,7 +18,7 @@
             <div class="btn-group w-100 align-items-center justify-content-between flex-wrap me-0">
                 <div>
                     {% if form.instance.pk != None %}
-                        {% bootstrap_button button_type="submit" button_class="btn-danger" id="delete-button" content="삭제" %}
+                        {% bootstrap_button button_type="submit" button_class="btn-danger" id="deleteButton" content="삭제" %}
                     {% endif %}
                     {% bootstrap_button button_type="reset" button_class="btn-success" content="초기화" %}
                 </div>
@@ -32,11 +32,15 @@
     {% if form.instance.pk != None %}
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', () => {
-                const deleteButton = document.querySelector("#delete-button");
+                const deleteButton = document.getElementById("deleteButton");
                 deleteButton.addEventListener('click', async event => {
                     event.preventDefault();
 
-                    const confirmed = await showConfirm({message: '삭제 하시겠습니까?'});
+                    const confirmed = await confirmModal.show({
+                        message: '삭제 하시겠습니까?',
+                        okText: '삭제',
+                        okClass: 'btn-danger'
+                    });
                     if (confirmed) {
                         document.querySelector('input[name="_method"]').value = 'DELETE';
                         document.querySelector('#room-form').submit();
