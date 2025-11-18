@@ -32,7 +32,7 @@ const confirmModal = (() => {
 
         titleElement.textContent = options.title || '확인';
         bodyElement.innerHTML = options.message || '';
-        okButton.textContent = options.okText || '취소';
+        okButton.textContent = options.okText || '확인';
         cancelButton.textContent = options.cancelText || '취소';
         if (options.okClass) {
             okButton.className = `btn ${options.okClass} btn-ok`;
