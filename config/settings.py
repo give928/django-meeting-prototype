@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'rooms.apps.RoomsConfig',
     'mptt',
+    'reservations.apps.ReservationsConfig',
 ]
 
 MIDDLEWARE = [

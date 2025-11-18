@@ -95,3 +95,32 @@ body {
     height: 1em;
     text-align: center;
 }
+
+.alert-overlay {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    width: 80%;
+    max-width: 600px;
+}
+
+.form-floating label {
+    transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+}
+
+select.form-select[readonly] {
+    pointer-events: none;
+}
+
+.nodata {
+    text-align: center;
+    padding: 5em 0;
+    font-size: 1.5rem;
+}
+
+.nodata svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}

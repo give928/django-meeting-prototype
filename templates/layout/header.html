@@ -9,10 +9,8 @@
                 <li class="nav-item"><a class="nav-link{% if request.path == '/home/' %} active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link{% if request.path|slice:"0:13" == '/departments/' %} active{% endif %}" aria-current="page" href="{% url 'departments' %}">Departments&Users</a></li>
                 <li class="nav-item"><a class="nav-link{% if request.path|slice:"0:7" == '/rooms/' %} active{% endif %}" aria-current="page" href="{% url 'rooms' %}">Rooms</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.path|slice:"0:14" == '/reservations/' %} active{% endif %}" aria-current="page" href="{% url 'reservations' %}">Reservations</a></li>
             </ul>
-            <form class="d-flex" role="search"><input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
             <div class="text-end ms-5">
                 <button type="button" class="btn btn-outline-light btn-sign-out">Sign-out</button>
             </div>

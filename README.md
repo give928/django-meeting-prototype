@@ -115,6 +115,25 @@ Downloading django_mptt-0.18.0-py3-none-any.whl (120 kB)
 Downloading django_js_asset-3.1.2-py3-none-any.whl (5.9 kB)
 Installing collected packages: django-js-asset, django-mptt
 Successfully installed django-js-asset-3.1.2 django-mptt-0.18.0
+
+$ pip install django-bootstrap-datepicker-plus
+
+$ python manage.py startapp reservations
+
+$ python manage.py makemigrations reservations
+Migrations for 'reservations':
+  reservations/migrations/0001_initial.py
+    + Create model Attendee
+    + Create model Reservation
+    + Add field reservation to attendee
+    + Create index idx_reservations_01 on field(s) room, start_datetime of model reservation
+    ~ Alter unique_together for attendee (1 constraint(s))
+
+$ python manage.py migrate reservations
+Operations to perform:
+  Apply all migrations: reservations
+Running migrations:
+  Applying reservations.0001_initial... OK
 ```
 
 ---
@@ -128,7 +147,7 @@ Successfully installed django-js-asset-3.1.2 django-mptt-0.18.0
 - [x] 로그인
 - [x] 회의실
 - [ ] 회의
-  - [ ] 예약
+  - [x] 예약
   - [ ] 녹음
   - [ ] 텍스트 변환
   - [ ] 교정

@@ -1,0 +1,116 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reservations.css' %}">
+{% endblock %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h1>예약</h1>
+    <hr class="my-4">
+    <div class="row">
+        <form class="needs-validation row" id="reservation-form" method="POST" novalidate>
+            {% csrf_token %}
+            <input type="hidden" id="_method" name="_method" value="{{ form.instance.pk|yesno:'PUT,' }}"/>
+            {% bootstrap_field form.room layout='floating' wrapper_class='col-md-3 mb-3' %}
+            {% bootstrap_field form.start_datetime layout='floating' wrapper_class='col-md-3 mb-3 form-floating' field_class='readonly' %}
+            {% bootstrap_field form.end_datetime layout='floating' wrapper_class='col-md-3 mb-3 form-floating' %}
+            <div class="col-md-12 mb-3 position-relative">
+                <div class="border reservation-time">
+                    <div id="timeline" class="top-0 start-0 w-100 h-100 reservation-timeline"></div>
+                    <div id="time-ruler" class="bottom-0 start-0 w-100 d-flex"></div>
+                </div>
+            </div>
+            <div class="accordion mb-3" id="accordionExample">
+                <div class="accordion-item">
+                    <h4 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            참석자
+                        </button>
+                    </h4>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% include "components/departments.html" with hierarchical_departments=departments visible_checkboxes=True checked_users=attendees user_input_name="attendees" readonly=form.readonly auto_initialize=False %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% bootstrap_field form.title layout='floating' %}
+            {% bootstrap_field form.description layout='floating' %}
+            <hr class="my-4">
+            <div class="btn-group w-100 align-items-center justify-content-between flex-wrap me-0 mb-3">
+                <div>
+                    {% if not form.readonly and form.instance.pk != None %}
+                        {% bootstrap_button button_type="button" button_class="btn-danger" id="deleteButton" content="삭제" %}
+                    {% endif %}
+                    {% if not form.readonly %}
+                        {% bootstrap_button button_type="reset" button_class="btn-success" content="초기화" %}
+                    {% endif %}
+                </div>
+                <div>
+                    {% if not form.readonly %}
+                        {% bootstrap_button button_type="submit" button_class="btn-primary" content="저장" %}
+                    {% endif %}
+                    <a class="btn btn-secondary" href="{% url 'reservations' %}?{{ request.GET.urlencode }}">목록</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static "js/reservations.js" %}"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButton = document.getElementById("deleteButton");
+            if (deleteButton) {
+                deleteButton.addEventListener('click', async event => {
+                    event.preventDefault();
+
+                    const confirmed = await confirmModal.show({
+                        message: '삭제 하시겠습니까?',
+                        okText: '삭제',
+                        okClass: 'btn-danger'
+                    });
+                    if (confirmed) {
+                        document.querySelector('#reservation-form input[name="_method"]').value = 'DELETE';
+                        document.querySelector('#reservation-form').submit();
+                    }
+                });
+            }
+
+            const startMeetingButton = document.getElementById("startMeetingButton");
+            if (startMeetingButton) {
+                startMeetingButton.addEventListener('click', async event => {
+                    event.preventDefault();
+
+                    const confirmed = await confirmModal.show({
+                        message: '회의를 시작 하시겠습니까?'
+                    });
+                    if (confirmed) {
+                        window.location.href = event.target.href;
+                    }
+                });
+            }
+
+            new reservation({
+                readonly: {% if form.readonly %}true{% else %}false{% endif %},
+                moveViewPage: false,
+                reservationId: '{% if form.instance.pk is not None %}{{ form.instance.pk }}{% endif %}',
+                timelineContainer: document.getElementById('timeline'),
+                timeRuler: document.getElementById('time-ruler'),
+                room: document.getElementById('id_room'),
+                startDateTime: document.getElementById('id_start_datetime'),
+                endDateTime: document.getElementById('id_end_datetime'),
+                hierarchicalDepartmentsConfig: {
+                    readonly: {% if readonly %}true{% else %}false{% endif %},
+                    wrapperElement: document.querySelector('#hierarchical-departments'),
+                    toggleButtonSelector: 'a.tree-toggle-button',
+                    expandButtonSelector: 'a#tree-expand-button',
+                    collapseButtonSelector: 'a#tree-collapse-button',
+                    internalCheckboxSelector: 'input.department[type="checkbox"]',
+                    leafCheckboxSelector: 'input.user[type="checkbox"]',
+                    parentAttribute: 'data-group-id'
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,38 @@
+<form method="get" action="{{ action_url }}">
+    {% if list_mode %}
+        <input type="hidden" name="page" value="1"/>
+    {% endif %}
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-end mb-3">
+        <div class="flex-grow-1">
+            <div class="row g-3">
+                {% if list_mode %}
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="start_date">시작일</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date }}"/>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="end_date">종료일</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date }}"/>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="user">예약자</label>
+                        <input type="text" class="form-control" id="user" name="user" value="{{ request.GET.user }}"/>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="attendee">참석자</label>
+                        <input type="text" class="form-control" id="attendee" name="attendee" value="{{ request.GET.attendee }}"/>
+                    </div>
+                {% else %}
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="date">예약일</label>
+                        <input type="date" class="form-control" id="date" name="date" value="{{ date }}"/>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="d-flex gap-2 mt-3 mt-lg-0">
+            <button type="submit" class="btn btn-outline-success ms-2 ms-md-3">검색</button>
+            <a class="btn btn-primary rounded-pill px-3" href="{% url 'reservation' 0 %}?{{ request.GET.urlencode }}">예약</a>
+        </div>
+    </div>
+</form>
