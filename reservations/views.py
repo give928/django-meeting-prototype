@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from typing import Dict
 
 from django.contrib import messages
@@ -51,7 +51,7 @@ def reservations(request):
 
     active_reservations = \
         (Reservation.objects
-         .select_related('room', 'created_user')
+         .select_related('room', 'created_user', 'meeting')
          .prefetch_related('attendees')
          .only(
             'id',
@@ -66,7 +66,8 @@ def reservations(request):
             'room__seat_count',
             'room__capacity_count',
             'room__has_monitor',
-            'room__has_microphone'
+            'room__has_microphone',
+            'meeting__id'
         )
          .annotate(
             group_name=Subquery(
@@ -97,7 +98,7 @@ def reservations(request):
     })
 
 
-def initialize_reservations_parameters(date: str | None, start_date: str | None, end_date: str | None) -> tuple[datetime, datetime, datetime]:
+def initialize_reservations_parameters(date: str | None, start_date: str | None, end_date: str | None) -> tuple[date, datetime, datetime]:
     now = timezone.localtime()
 
     start_of_week = (now - timedelta(days=now.weekday())).replace(
@@ -137,7 +138,7 @@ class ReservationView(LoginRequiredMixin, View):
         if pk == 0:
             return render(request, self.template_name, {'form': self.reservation_form_class(readonly=False), 'departments': DepartmentCache.find(is_active=True)})
 
-        reservation = get_object_or_404(Reservation, pk=pk)
+        reservation = get_object_or_404(Reservation.objects.select_related('meeting'), pk=pk)
         attendees = [attendee.user.pk for attendee in Attendee.objects.select_related('user').filter(reservation=reservation).all()]
 
         return render(
@@ -256,13 +257,17 @@ def reservations_schedules(request, room_id):
             r_start_datetime = r.start_datetime
             r_end_datetime = r.end_datetime
 
-            if not recommend and r_start_datetime < end_datetime and r_end_datetime > start_datetime:
-                # raise ValidationError(f'이 시간에는 이미 다른 예약이 있습니다.\n({r_start_datetime.astimezone().strftime('%Y-%m-%d %H:%M')} ~ {r_end_datetime.astimezone().strftime('%Y-%m-%d %H:%M')})\n다른 시간으로 선택해주세요.')
-                status = 'error'
-                message = (f'{start_datetime.astimezone().strftime('%Y-%m-%d %H:%M')} ~ {end_datetime.astimezone().strftime('%Y-%m-%d %H:%M')}\n시간에 이미 다른 예약이 있습니다.'
-                           f'\n\n회의: {r.title}\n시간: {r_start_datetime.astimezone().strftime('%Y-%m-%d %H:%M')} ~ {r_end_datetime.astimezone().strftime('%Y-%m-%d %H:%M')}'
-                           f'\n예약자: [{r.group_name}]{r.created_user.username}'
-                           f'\n\n다른 시간으로 선택해주세요.')
+            if str(r.id) == reservation_id:
+                r_start_datetime = start_datetime
+                r_end_datetime = end_datetime
+            else:
+                if not recommend and r_start_datetime < end_datetime and r_end_datetime > start_datetime:
+                    # raise ValidationError(f'이 시간에는 이미 다른 예약이 있습니다.\n({r_start_datetime.astimezone().strftime('%Y-%m-%d %H:%M')} ~ {r_end_datetime.astimezone().strftime('%Y-%m-%d %H:%M')})\n다른 시간으로 선택해주세요.')
+                    status = 'error'
+                    message = (f'{start_datetime.astimezone().strftime("%Y-%m-%d %H:%M")} ~ {end_datetime.astimezone().strftime("%Y-%m-%d %H:%M")}\n시간에 이미 다른 예약이 있습니다.'
+                               f'\n\n회의: {r.title}\n시간: {r_start_datetime.astimezone().strftime("%Y-%m-%d %H:%M")} ~ {r_end_datetime.astimezone().strftime("%Y-%m-%d %H:%M")}'
+                               f'\n예약자: [{r.group_name}]{r.created_user.username}'
+                               f'\n\n다른 시간으로 선택해주세요.')
 
             if r_start_datetime > last_end:
                 start_offset = (last_end - start_of_day).total_seconds() / 60
@@ -279,7 +284,7 @@ def reservations_schedules(request, room_id):
             timelines.append({
                 'status': 'reserved' if str(r.id) != reservation_id else 'selected',
                 'id': r.id,
-                'time': f'{r.start_datetime.astimezone().strftime('%H:%M')} ~ {r.end_datetime.astimezone().strftime('%H:%M')}',
+                'time': f'{r.start_datetime.astimezone().strftime("%H:%M")} ~ {r.end_datetime.astimezone().strftime("%H:%M")}',
                 'title': f'{r.title}' if str(r.id) != reservation_id else '현재 예약',
                 'user': f'[{r.group_name}]{r.created_user.username}',
                 'start_offset': start_offset,

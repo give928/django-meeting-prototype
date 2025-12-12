@@ -60,7 +60,7 @@ class ReservationForm(forms.ModelForm):
         rooms_cache = {r.id: r for r in rooms}
         self.fields['room'].queryset = rooms
         self.fields['room'].widget = RoomSelect(
-            choices=[(r.id, f'{r.name} ({r.seat_count}/{r.capacity_count}{' 🖥️' if r.has_monitor else ''}{' 🎤' if r.has_microphone else ''})') for r in rooms],
+            choices=[(r.id, f'{r.name} ({r.seat_count}/{r.capacity_count}{" 🖥️" if r.has_monitor else ""}{" 🎤" if r.has_microphone else ""})') for r in rooms],
             attrs={'class': 'form-select'},
             rooms_cache=rooms_cache
         )
