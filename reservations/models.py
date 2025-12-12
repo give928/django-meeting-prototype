@@ -32,7 +32,7 @@ class Reservation(Base, PrefetchValidationMixin):
         verbose_name = "예약"
         verbose_name_plural = "예약 목록"
         indexes = [
-            models.Index(fields=['room', 'start_datetime'], name='idx_reservations_01'),
+            models.Index(fields=['room', 'start_datetime'], name='idx_reservation_01'),
         ]
 
     def __str__(self):
@@ -91,8 +91,8 @@ class Reservation(Base, PrefetchValidationMixin):
             .filter(q)
             .first())
         if reservation is not None:
-            message = (f'{self.start_datetime.astimezone().strftime('%Y-%m-%d %H:%M')} ~ {self.end_datetime.astimezone().strftime('%Y-%m-%d %H:%M')}\n시간에 이미 다른 예약이 있습니다.'
-                       f'\n\n회의: {reservation.title}\n시간: {reservation.start_datetime.astimezone().strftime('%Y-%m-%d %H:%M')} ~ {reservation.end_datetime.astimezone().strftime('%Y-%m-%d %H:%M')}'
+            message = (f'{self.start_datetime.astimezone().strftime("%Y-%m-%d %H:%M")} ~ {self.end_datetime.astimezone().strftime("%Y-%m-%d %H:%M")}\n시간에 이미 다른 예약이 있습니다.'
+                       f'\n\n회의: {reservation.title}\n시간: {reservation.start_datetime.astimezone().strftime("%Y-%m-%d %H:%M")} ~ {reservation.end_datetime.astimezone().strftime("%Y-%m-%d %H:%M")}'
                        f'\n예약자: [{reservation.group_name}]{reservation.created_user.username}'
                        f'\n\n다른 시간으로 선택해주세요.')
             raise ValidationError({
