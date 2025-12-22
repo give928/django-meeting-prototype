@@ -232,5 +232,9 @@ const tree = function (options) {
         return this.options.wrapperElement.querySelectorAll(this.options.leafCheckboxSelector + ':checked').length;
     };
 
+    this.getCheckedLeaf = () => {
+        return this.options.wrapperElement.querySelectorAll(this.options.leafCheckboxSelector + ':checked');
+    };
+
     this.initialize();
 };

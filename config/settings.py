@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -23,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8vhs(g=qi43$d0!gn_3a@d)xt8s=u!1+xwbod6)qlq0m(2#tzo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -44,6 +50,8 @@ INSTALLED_APPS = [
     'rooms.apps.RoomsConfig',
     'mptt',
     'reservations.apps.ReservationsConfig',
+    'meetings.apps.MeetingsConfig',
+    'django_q',
 ]
 
 MIDDLEWARE = [
@@ -82,10 +90,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db(),
 }
 
 
@@ -144,6 +149,7 @@ AUTHENTICATION_BACKENDS = ['accounts.backends.UserBackend']
 # session
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 600
+SESSION_SAVE_EVERY_REQUEST = True
 
 # logging
 LOGGING = {
@@ -230,3 +236,23 @@ LOGGING = {
 
 # login
 LOGIN_URL = '/sign-in/'
+
+# media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# queue
+Q_CLUSTER = {
+    'name': 'DjangORM',
+    'workers': 2,
+    'timeout': 7200,
+    'retry': 10800,
+    'queue_limit': 50,
+    'orm': 'default',
+}
+
+# Hugging Face Token
+HF_TOKEN = env('HF_TOKEN')
+
+# Gemini API Key
+GEMINI_API_KEY = env('GEMINI_API_KEY')

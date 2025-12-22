@@ -89,7 +89,7 @@ const reservation = function (options) {
         })
         .then(response => {
             if (response.status === 401) {
-                alert('로그인 시간이 만료되었습니다. 다시 로그인해주세요.');
+                alert('🚫 로그인 후 이용해 주세요.');
                 window.location.href = `/sign-in/?next=${window.location.pathname}`;
                 return;
             }
@@ -104,7 +104,7 @@ const reservation = function (options) {
                 }
             }
             if (json.message || json.status !== 'success') {
-                toast(json.message ? json.message : '시스템 예외가 발생했습니다.');
+                toast(json.message ? json.message : '😱 시스템 예외가 발생했어요.');
             }
         }).finally(() => {
             if (this.options.readonly === false) {
@@ -121,7 +121,7 @@ const reservation = function (options) {
         }
         if (this.options.startDateTime && this.options.endDateTime && this.options.startDateTime.value && this.options.endDateTime.value && this.options.startDateTime.value > this.options.endDateTime.value) {
             this.updateDatetimeValue();
-            toast('종료 일시는 시작 일시보다 이후여야 합니다.');
+            toast('⛔️ 종료 일시는 시작 일시보다 이후여야 해요.');
             return false;
         }
 
@@ -206,7 +206,7 @@ const reservation = function (options) {
         this.clearTimeline();
 
         if (this.timeSlotCount > 96) {
-            this.options.timelineContainer.appendChild(this.createText('2일 이상인 경우 타임라인이 표시되지 않습니다.'));
+            this.options.timelineContainer.appendChild(this.createText('🚫 2일 이상인 경우 타임라인이 표시되지 않아요.'));
             return false;
         }
 
@@ -335,7 +335,7 @@ const reservation = function (options) {
 
     this.updateTimeSlot = (index) => {
         if (this.timeSlots[index].status === 'reserved') {
-            toast('이 시간에는 이미 다른 예약이 있습니다.\n다른 시간으로 선택해주세요.');
+            toast('🚫 이 시간에는 이미 다른 예약이 있어요.\n다른 시간으로 선택해 주세요.');
             return false;
         }
 
@@ -356,7 +356,6 @@ const reservation = function (options) {
                 let selectable = true;
                 for (let i = Math.min(startIndex, index); i <= Math.max(endIndex, index); i++) {
                     if (this.timeSlots[i].status === 'reserved') {
-                        // toast('이 시간에는 이미 다른 예약이 있습니다.\n다른 시간으로 선택해주세요.');
                         this.selectedTimeSlots.clear();
                         this.selectedTimeSlots.add(index);
                         selectable = false;

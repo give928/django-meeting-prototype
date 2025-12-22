@@ -11,8 +11,17 @@
         <form class="needs-validation row" id="reservation-form" method="POST" novalidate>
             {% csrf_token %}
             <input type="hidden" id="_method" name="_method" value="{{ form.instance.pk|yesno:'PUT,' }}"/>
+            {% if not form.readonly and form.instance.pk != None %}
+                <div class="d-flex col-md-1 mb-3 align-items-center">
+                    {% if form.instance.meeting %}
+                        <a href="{% url 'meeting' pk=form.instance.meeting.pk %}" class="btn btn-success">회의보기</a>
+                    {% else %}
+                        <a href="{% url 'meeting' pk=form.instance.pk %}" class="btn btn-warning" id="startMeetingButton">회의시작</a>
+                    {% endif %}
+                </div>
+            {% endif %}
             {% bootstrap_field form.room layout='floating' wrapper_class='col-md-3 mb-3' %}
-            {% bootstrap_field form.start_datetime layout='floating' wrapper_class='col-md-3 mb-3 form-floating' field_class='readonly' %}
+            {% bootstrap_field form.start_datetime layout='floating' wrapper_class='col-md-3 mb-3 form-floating' %}
             {% bootstrap_field form.end_datetime layout='floating' wrapper_class='col-md-3 mb-3 form-floating' %}
             <div class="col-md-12 mb-3 position-relative">
                 <div class="border reservation-time">
@@ -23,11 +32,11 @@
             <div class="accordion mb-3" id="accordionExample">
                 <div class="accordion-item">
                     <h4 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-attendee" aria-expanded="true" aria-controls="collapse-attendee">
                             참석자
                         </button>
                     </h4>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div id="collapse-attendee" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             {% include "components/departments.html" with hierarchical_departments=departments visible_checkboxes=True checked_users=attendees user_input_name="attendees" readonly=form.readonly auto_initialize=False %}
                         </div>
@@ -60,38 +69,44 @@
     <script type="text/javascript" src="{% static "js/reservations.js" %}"></script>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
-            const deleteButton = document.getElementById("deleteButton");
+            const deleteButton = document.getElementById('deleteButton');
             if (deleteButton) {
                 deleteButton.addEventListener('click', async event => {
                     event.preventDefault();
 
                     const confirmed = await confirmModal.show({
-                        message: '삭제 하시겠습니까?',
+                        message: '삭제할까요?',
                         okText: '삭제',
                         okClass: 'btn-danger'
                     });
                     if (confirmed) {
-                        document.querySelector('#reservation-form input[name="_method"]').value = 'DELETE';
-                        document.querySelector('#reservation-form').submit();
+                        const form = document.getElementById('reservation-form');
+                        form.querySelector('input[name="_method"]').value = 'DELETE';
+                        form.submit();
                     }
                 });
             }
 
-            const startMeetingButton = document.getElementById("startMeetingButton");
+            const startMeetingButton = document.getElementById('startMeetingButton');
             if (startMeetingButton) {
                 startMeetingButton.addEventListener('click', async event => {
                     event.preventDefault();
 
                     const confirmed = await confirmModal.show({
-                        message: '회의를 시작 하시겠습니까?'
+                        message: '회의를 시작할까요?'
                     });
                     if (confirmed) {
-                        window.location.href = event.target.href;
+                        const method = document.getElementById('_method');
+                        method.value = 'POST';
+                        const form = document.getElementById('reservation-form');
+                        form.setAttribute('action', event.target.href);
+                        form.setAttribute('method', 'POST');
+                        form.submit();
                     }
                 });
             }
 
-            new reservation({
+            const r = new reservation({
                 readonly: {% if form.readonly %}true{% else %}false{% endif %},
                 moveViewPage: false,
                 reservationId: '{% if form.instance.pk is not None %}{{ form.instance.pk }}{% endif %}',
@@ -110,6 +125,16 @@
                     leafCheckboxSelector: 'input.user[type="checkbox"]',
                     parentAttribute: 'data-group-id'
                 }
+            });
+
+            FormValidators.add(document.getElementById('reservation-form'), (form) => {
+                const attendees = r.departemtns.getCheckedLeaf();
+                if (attendees === null || attendees.length === 0) {
+                    toast('🚫 참석자를 1명 이상 선택해주세요.');
+                    BootstrapAccordionUtils.focus(document.getElementById('collapse-attendee'));
+                    return false;
+                }
+                return true;
             });
         });
     </script>

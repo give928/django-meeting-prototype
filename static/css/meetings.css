@@ -1,0 +1,78 @@
+.speaker-theme-0 { --theme-bg: #e0f7fa; --theme-border: #00bcd4; } /* Cyan */
+.speaker-theme-1 { --theme-bg: #f3e5f5; --theme-border: #9c27b0; } /* Purple */
+.speaker-theme-2 { --theme-bg: #e8f5e9; --theme-border: #4caf50; } /* Green */
+.speaker-theme-3 { --theme-bg: #ffebee; --theme-border: #f44336; } /* Red */
+.speaker-theme-4 { --theme-bg: #fff3e0; --theme-border: #ff9800; } /* Orange */
+.speaker-theme-5 { --theme-bg: #e3f2fd; --theme-border: #2196f3; } /* Blue */
+
+.chat-container {
+    background-color: var(--bs-body-bg);
+}
+
+.chat-bubble {
+    background: var(--theme-bg);
+    border: 1px solid var(--theme-border);
+    color: #000;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.transcript-segment .fw-bold {
+    color: var(--theme-border) !important;
+}
+.transcript-segment .text-muted {
+    color: var(--bs-secondary-color) !important;
+}
+
+[data-bs-theme="dark"], [data-bs-theme="auto"] .body:not([data-bs-theme="light"]) {
+    .speaker-theme-0 { --theme-bg: #006064; } /* Cyan Dark */
+    .speaker-theme-1 { --theme-bg: #4a148c; } /* Purple Dark */
+    .speaker-theme-2 { --theme-bg: #1b5e20; } /* Green Dark */
+    .speaker-theme-3 { --theme-bg: #b71c1c; } /* Red Dark */
+    .speaker-theme-4 { --theme-bg: #e65100; } /* Orange Dark */
+    .speaker-theme-5 { --theme-bg: #0d47a1; } /* Blue Dark */
+
+    .chat-bubble {
+        background: var(--theme-bg);
+        border-color: var(--theme-border);
+        color: #fff;
+    }
+
+    .transcript-segment {
+        box-shadow: 0 1px 3px rgba(255, 255, 255, 0.08);
+    }
+}
+
+.chat-bubble:hover {
+    box-shadow: 0 0 5px var(--theme-border);
+}
+
+.transcript-segment.highlight {
+    font-weight: bold;
+    padding-left: 1em;
+}
+
+.transcript-segment.highlight .chat-bubble {
+    box-shadow: 0 0 5px 2px var(--theme-border);
+}
+
+.scrollspy-transcript {
+    max-height: 30em;
+}
+
+.transcript-container .tab-content {
+    padding: 1em;
+    border-left: var(--bs-border-width) solid var(--bs-border-color);
+    border-right: var(--bs-border-width) solid var(--bs-border-color);
+    border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+    border-bottom-left-radius: var(--bs-border-radius);
+    border-bottom-right-radius: var(--bs-border-radius);
+}
+
+.transcript-container .tab-content ol {
+    margin-bottom: 0;
+}
+
+.accordion-item {
+    scroll-margin-top: 5em;
+}

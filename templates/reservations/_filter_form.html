@@ -32,7 +32,7 @@
         </div>
         <div class="d-flex gap-2 mt-3 mt-lg-0">
             <button type="submit" class="btn btn-outline-success ms-2 ms-md-3">검색</button>
-            <a class="btn btn-primary rounded-pill px-3" href="{% url 'reservation' 0 %}?{{ request.GET.urlencode }}">예약</a>
+            <a class="btn btn-primary rounded-pill px-3" href="{% url 'reservation' 0 %}{% if request.GET.urlencode %}?{% endif %}{{ request.GET.urlencode }}">등록</a>
         </div>
     </div>
 </form>

@@ -1,0 +1,35 @@
+# Core Framework
+Django
+django_bootstrap5
+django-bootstrap-datepicker-plus
+django-mptt
+django-q2
+django-environ
+markdown
+
+# ML/Audio Stack
+whisperx==3.7.4
+faster-whisper==1.1.1
+pyannote.audio==3.3.2
+av==12.3.0
+
+# Deep Learning Backend
+torch==2.8.0
+torchaudio==2.8.0
+
+# Huggingface
+transformers==4.48.0
+tokenizers==0.21.0
+accelerate
+huggingface_hub==0.24.0
+
+# Audio Dependencies
+numpy==2.0.2
+librosa==0.10.2
+webrtcvad==2.0.10
+pydub==0.25.1
+soundfile==0.12.1
+ffmpeg-python==0.2.0
+
+# Gemini API
+google-genai

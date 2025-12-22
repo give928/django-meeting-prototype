@@ -37,8 +37,10 @@ def reservations(request):
     date, start_datetime, end_datetime = initialize_reservations_parameters(date, start_date, end_date)
 
     q = Q(is_active=True)
-    q &= Q(start_datetime__gte=start_datetime)
-    q &= Q(start_datetime__lt=end_datetime)
+    if start_datetime:
+        q &= Q(start_datetime__gte=start_datetime)
+    if end_datetime:
+        q &= Q(start_datetime__lt=end_datetime)
     if user:
         q &= Q(created_user__username__icontains=user)
     if attendee:
@@ -92,8 +94,8 @@ def reservations(request):
     return render(request, 'reservations/reservations.html', {
         'page_reservations': page_reservations,
         'rooms': rooms,
-        'start_date': start_datetime.strftime('%Y-%m-%d'),
-        'end_date': (end_datetime - timedelta(days=1)).strftime('%Y-%m-%d'),
+        'start_date': start_datetime.strftime('%Y-%m-%d') if start_datetime else None,
+        'end_date': (end_datetime - timedelta(days=1)).strftime('%Y-%m-%d') if end_datetime else None,
         'date': date.strftime('%Y-%m-%d'),
     })
 
@@ -110,21 +112,23 @@ def initialize_reservations_parameters(date: str | None, start_date: str | None,
     else:
         date_obj = now.date()
 
-    if start_date:
-        start_datetime = timezone.make_aware(
-            datetime.strptime(start_date, '%Y-%m-%d')
-        )
-    else:
-        start_datetime = start_of_week
-
-    if end_date:
-        end_datetime = timezone.make_aware(
-            datetime.strptime(end_date, '%Y-%m-%d')
-        ) + timedelta(days=1)
-    else:
-        end_datetime = now.replace(
-            hour=23, minute=59, second=59, microsecond=999999
-        ) + timedelta(microseconds=1)
+    # if start_date:
+    #     start_datetime = timezone.make_aware(
+    #         datetime.strptime(start_date, '%Y-%m-%d')
+    #     )
+    # else:
+    #     start_datetime = start_of_week
+    #
+    # if end_date:
+    #     end_datetime = timezone.make_aware(
+    #         datetime.strptime(end_date, '%Y-%m-%d')
+    #     ) + timedelta(days=1)
+    # else:
+    #     end_datetime = now.replace(
+    #         hour=23, minute=59, second=59, microsecond=999999
+    #     ) + timedelta(microseconds=1)
+    start_datetime = None
+    end_datetime = None
 
     return date_obj, start_datetime, end_datetime
 
@@ -160,7 +164,7 @@ class ReservationView(LoginRequiredMixin, View):
             reservation.last_modified_user_id = request.user.pk
             reservation.save()
             reservation.save_attendees(attendees, request.user)
-            messages.success(request, '예약이 등록되었습니다.')
+            messages.success(request, '👍 예약이 등록되었어요.')
             return redirect('reservations')
 
         return self.error(attendees, form, request)
@@ -170,7 +174,7 @@ class ReservationView(LoginRequiredMixin, View):
         pk = kwargs['pk']
         reservation = get_object_or_404(Reservation.objects.prefetch_related('attendees'), pk=pk)
         if not reservation.can_edit(request.user):
-            messages.error(request, '수정 권한이 없습니다.\n(리더, 작성자, 참석자만 수정할 수 있습니다.)')
+            messages.error(request, '⛔️ 수정 권한이 없어요.\n(리더, 작성자, 참석자만 수정할 수 있어요.)')
             return redirect('reservations')
         form = self.reservation_form_class(request.POST, instance=reservation)
         attendees = set(map(int, request.POST.getlist('attendees')))
@@ -181,7 +185,7 @@ class ReservationView(LoginRequiredMixin, View):
             update_fields = ['room_id', 'title', 'description', 'start_datetime', 'end_datetime', 'last_modified_user_id', 'last_modified_date']
             reservation.save(update_fields=update_fields)
             reservation.save_attendees(attendees, request.user)
-            messages.success(request, '예약이 수정되었습니다.')
+            messages.success(request, '👌 예약이 수정되었어요.')
             return redirect('reservations')
 
         return self.error(attendees, form, request)
@@ -193,7 +197,7 @@ class ReservationView(LoginRequiredMixin, View):
         reservation.last_modified_date = timezone.now()
         update_fields = ['is_active', 'last_modified_user_id', 'last_modified_date']
         reservation.save(update_fields=update_fields)
-        messages.success(request, '예약이 삭제되었습니다.')
+        messages.success(request, '👋 예약이 삭제되었어요.')
         return redirect('reservations')
 
     def error(self, attendees, form: ReservationForm, request) -> HttpResponse:
@@ -264,10 +268,10 @@ def reservations_schedules(request, room_id):
                 if not recommend and r_start_datetime < end_datetime and r_end_datetime > start_datetime:
                     # raise ValidationError(f'이 시간에는 이미 다른 예약이 있습니다.\n({r_start_datetime.astimezone().strftime('%Y-%m-%d %H:%M')} ~ {r_end_datetime.astimezone().strftime('%Y-%m-%d %H:%M')})\n다른 시간으로 선택해주세요.')
                     status = 'error'
-                    message = (f'{start_datetime.astimezone().strftime("%Y-%m-%d %H:%M")} ~ {end_datetime.astimezone().strftime("%Y-%m-%d %H:%M")}\n시간에 이미 다른 예약이 있습니다.'
+                    message = (f'⛔️ {start_datetime.astimezone().strftime("%Y-%m-%d %H:%M")} ~ {end_datetime.astimezone().strftime("%Y-%m-%d %H:%M")}\n시간에 이미 다른 예약이 있어요.'
                                f'\n\n회의: {r.title}\n시간: {r_start_datetime.astimezone().strftime("%Y-%m-%d %H:%M")} ~ {r_end_datetime.astimezone().strftime("%Y-%m-%d %H:%M")}'
                                f'\n예약자: [{r.group_name}]{r.created_user.username}'
-                               f'\n\n다른 시간으로 선택해주세요.')
+                               f'\n\n다른 시간으로 선택해 주세요.')
 
             if r_start_datetime > last_end:
                 start_offset = (last_end - start_of_day).total_seconds() / 60
@@ -318,7 +322,7 @@ def reservations_schedules(request, room_id):
         return JsonResponse({'status': status, 'message': message, 'start': start_of_day.astimezone(), 'end': end_of_day.astimezone(), 'timelines': timelines})
     except Exception as e:
         logging.error('Error:', e)
-        return JsonResponse({'status': 'error', 'message': '데이터 처리 중 예외가 발생했습니다.'})
+        return JsonResponse({'status': 'error', 'message': '😱 데이터 처리 중 예외가 발생했어요.'})
 
 
 def initialize_period(readonly: str | None, start_datetime: str | None, end_datetime: str | None) -> tuple[bool, datetime, datetime, datetime, datetime]:
