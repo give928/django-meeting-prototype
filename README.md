@@ -179,7 +179,7 @@ $ pip install -r requirements.txt
   $ python manage.py startapp meetings
   
   $ python manage.py makemigrations meetings
- Migrations for 'meetings':
+  Migrations for 'meetings':
   meetings/migrations/0001_initial.py
     + Create model Attendee
     + Create model Meeting
