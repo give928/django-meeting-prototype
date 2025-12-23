@@ -4,8 +4,8 @@
 <img alt="Django" src ="https://img.shields.io/badge/Django-092E20.svg?&style=for-the-badge&logo=Django&logoColor=white"/>
 
 <img alt="Pytorch" src ="https://img.shields.io/badge/Pytorch-EE4C2C.svg?&style=for-the-badge&logo=Pytorch&logoColor=white"/>
-<img alt="Hugging Face" src ="https://img.shields.io/badge/Hugging Face-FFD21E.svg?&style=for-the-badge&logo=Hugging Face&logoColor=black"/>
-<img alt="Google Gemini" src ="https://img.shields.io/badge/Google Gemini-8E75B2.svg?&style=for-the-badge&logo=Google Gemini&logoColor=white"/>
+<img alt="Hugging Face" src ="https://img.shields.io/badge/Hugging%20Face-FFD21E.svg?&style=for-the-badge&logo=Hugging%20Face&logoColor=black"/>
+<img alt="Google Gemini" src ="https://img.shields.io/badge/Google%20Gemini-8E75B2.svg?&style=for-the-badge&logo=Google%20Gemini&logoColor=white"/>
 
 <img alt="SQLite" src ="https://img.shields.io/badge/SQLite-003B57.svg?&style=for-the-badge&logo=SQLite&logoColor=white"/>
 
@@ -179,24 +179,25 @@ $ pip install -r requirements.txt
   $ python manage.py startapp meetings
   
   $ python manage.py makemigrations meetings
-  Migrations for 'meetings':
-    meetings/migrations/0001_initial.py
-      + Create model Attendee
-      + Create model Meeting
-      + Add field meeting to attendee
-      + Create model Recording
-      + Create model Speaker
-      + Create model SpeechRecognition
-      + Create model Segment
-      + Add field latest_speech_recognition to recording
-      + Create model Summarization
-      + Add field latest_summarization to recording
-      + Create model Word
-      + Create index idx_meeting_01 on field(s) start_datetime, end_datetime of model meeting
-      ~ Alter unique_together for attendee (1 constraint(s))
-      + Create index idx_speech_recognition_01 on field(s) recording, -id of model speechrecognition
-      + Create index idx_summarization_01 on field(s) speech_recognition, -id of model summarization
-      + Create index idx_word_01 on field(s) search_content of model word
+ Migrations for 'meetings':
+  meetings/migrations/0001_initial.py
+    + Create model Attendee
+    + Create model Meeting
+    + Add field meeting to attendee
+    + Create model Recording
+    + Create model Speaker
+    + Create model SpeechRecognition
+    + Create model Segment
+    + Add field latest_speech_recognition to recording
+    + Create model Summarization
+    + Add field latest_summarization to recording
+    + Create model Word
+    + Create index idx_meeting_01 on field(s) start_datetime, end_datetime of model meeting
+    ~ Alter unique_together for attendee (1 constraint(s))
+    + Create index idx_speech_recognition_01 on field(s) task_status_code of model speechrecognition
+    + Create index idx_speech_recognition_02 on field(s) task_step_code of model speechrecognition
+    + Create index idx_summarization_01 on field(s) task_status_code of model summarization
+    + Create index idx_word_01 on field(s) search_content of model word
   
   $ python manage.py migrate meetings
   Operations to perform:

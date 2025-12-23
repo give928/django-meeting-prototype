@@ -1,3 +1,133 @@
 {% extends "layout/base.html" %}
+{% load mathfilters %}
+{% load humanize %}
 {% block content %}
+    <h2 class="mb-4">🖥️ System Resource Dashboard</h2>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Task Q</div>
+                <div class="card-body" id="task">
+                    <div>Workers: {{ metrics.task.worker_count|intcomma }}</div>
+                    <div>Queue Limit: {{ metrics.task.limit_count|intcomma }}</div>
+                    <div>&nbsp;</div>
+                    <div>Wait/Active: <span id="task_progressing_count"></span></div>
+                    <div>Completed: <span id="task_completed_count"></span></div>
+                    <div>Schedule: <span id="task_schedule_count"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">음성 인식</div>
+                <div class="card-body" id="speech_recognition">
+                    <div>대기: </div>
+                    <div>처리중: </div>
+                    <div class="ms-3">음성 인식(ASR): </div>
+                    <div class="ms-3">단어 정렬: </div>
+                    <div class="ms-3">화자 분리: </div>
+                    <div class="ms-3">화자 할당: </div>
+                    <div>완료: </div>
+                    <div>실패: </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">교정·요약</div>
+                <div class="card-body" id="summarization">
+                    <div>대기: </div>
+                    <div>처리중: </div>
+                    <div>완료: </div>
+                    <div>실패: </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">CPU</div>
+                <div class="card-body" id="cpu">
+                    <div>Model: {{ metrics.cpu.model }}</div>
+                    <div>Cores(Logical/Physical): {{ metrics.cpu.logical_core_count }}/{{ metrics.cpu.physical_core_count }}</div>
+                    <div>Frequency: {{ metrics.cpu.freq_mhz.current }}/{{ metrics.cpu.freq_mhz.max }}GHz</div>
+                    <div>Usage: <span id="cpu_usage_percent"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Memory</div>
+                <div class="card-body" id="memory">
+                    <div>Total: {{ metrics.memory.total|div:1024|div:1024|intcomma }}MB</div>
+                    <div>Used: <span id="memory_used"></span></div>
+                    <div>Available: <span id="memory_available"></span></div>
+                    <div>Usage: <span id="memory_percent"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">GPU</div>
+                <div class="card-body" id="gpu">NVIDIA GPU 없음</div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">OS</div>
+                <div class="card-body" id="os">
+                    <div>Platform: {{ metrics.os.platform }}</div>
+                    <div>OS: {{ metrics.os.os }}</div>
+                    <div>Version: {{ metrics.os.version }}</div>
+                    <div>Release: {{ metrics.os.release }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+    <script type="text/javascript">
+        async function loadMetrics() {
+            const res = await fetch("/metrics/");
+            const data = await res.json();
+
+            document.getElementById("task_progressing_count").innerHTML = data.task.progressing_count.toLocaleString();
+            document.getElementById("task_completed_count").innerHTML = data.task.completed_count.toLocaleString();
+            document.getElementById("task_schedule_count").innerHTML = data.task.schedule_count.toLocaleString();
+
+            document.getElementById("speech_recognition").innerHTML = `
+                <div>대기: ${data.speech_recognition.waiting_count.toLocaleString()}</div>
+                <div>처리중: ${data.speech_recognition.processing_count.toLocaleString()}</div>
+                <div class="ms-3">음성 인식(ASR): ${data.speech_recognition.speech_recognition_count.toLocaleString()}</div>
+                <div class="ms-3">단어 정렬: ${data.speech_recognition.alignment_count.toLocaleString()}</div>
+                <div class="ms-3">화자 분리: ${data.speech_recognition.diarization_count.toLocaleString()}</div>
+                <div class="ms-3">화자 할당: ${data.speech_recognition.assignment_count.toLocaleString()}</div>
+                <div>완료: ${data.speech_recognition.completed_count.toLocaleString()}</div>
+                <div>실패: ${data.speech_recognition.failed_count.toLocaleString()}</div>`;
+
+            document.getElementById("summarization").innerHTML = `
+                <div>대기: ${data.summarization.waiting_count.toLocaleString()}</div>
+                <div>처리중: ${data.summarization.processing_count.toLocaleString()}</div>
+                <div>완료: ${data.summarization.completed_count.toLocaleString()}</div>
+                <div>실패: ${data.summarization.failed_count.toLocaleString()}</div>`;
+
+            document.getElementById("cpu_usage_percent").innerHTML = `${data.cpu.usage_percent}%`;
+
+            document.getElementById("memory_used").innerHTML = `${parseFloat((data.memory.used / 1024 / 1024).toFixed(1)).toLocaleString()}MB`;
+            document.getElementById("memory_available").innerHTML = `${parseFloat((data.memory.available / 1024 / 1024).toFixed(1)).toLocaleString()}MB`;
+            document.getElementById("memory_percent").innerHTML = `${data.memory.percent}%`;
+
+            if (data.gpu && !data.gpu.error) {
+                document.getElementById("gpu").innerHTML = `
+                    <div>Model: ${data.gpu.name}</div>
+                    <div>VRAM Usage: ${data.gpu.utilization.memory}%</div>
+                    <div>Clock: ${data.gpu.clock_mhz} MHz</div>
+                    <div>GPU Usage: ${data.gpu.utilization.gpu}%</div>`;
+            } else {
+                document.getElementById("gpu").innerText = "NVIDIA GPU 없음";
+            }
+        }
+
+        loadMetrics();
+        setInterval(loadMetrics, 5000);
+    </script>
 {% endblock %}

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'reservations.apps.ReservationsConfig',
     'meetings.apps.MeetingsConfig',
     'django_q',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

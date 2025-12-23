@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import OuterRef, Subquery
+from django.db.models import OuterRef, Subquery, Count, Q
 from django.utils import timezone
 from django_q.tasks import async_task
 from pydub import AudioSegment
@@ -485,12 +485,56 @@ class SpeechRecognition(Base):
 
         return summarization
 
+    @classmethod
+    def get_count(cls):
+        return SpeechRecognition.objects.aggregate(
+            speech_recognition_count=Count(
+                'id',
+                filter=Q(task_step_code=SpeechRecognitionStepCode.SPEECH_RECOGNITION)
+            ),
+            alignment_count=Count(
+                'id',
+                filter=Q(task_step_code=SpeechRecognitionStepCode.ALIGNMENT)
+            ),
+            diarization_count=Count(
+                'id',
+                filter=Q(task_step_code=SpeechRecognitionStepCode.DIARIZATION)
+            ),
+            assignment_count=Count(
+                'id',
+                filter=Q(task_step_code=SpeechRecognitionStepCode.ASSIGNMENT)
+            ),
+            waiting_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.WAITING)
+            ),
+            processing_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.PROCESSING)
+            ),
+            completed_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.COMPLETED)
+            ),
+            failed_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.FAILED)
+            ),
+        )
+
     class Meta:
         db_table = 'meetings_speech_recognition'
         verbose_name = '음성 인식'
         verbose_name_plural = '음성 인식 목록'
         indexes = [
-            models.Index(fields=['recording', '-id'], name='idx_speech_recognition_01'),
+            models.Index(
+                fields=['task_status_code'],
+                name='idx_speech_recognition_01'
+            ),
+            models.Index(
+                fields=['task_step_code'],
+                name='idx_speech_recognition_02'
+            ),
         ]
 
     def __str__(self):
@@ -684,12 +728,36 @@ class Summarization(Base):
         self.save(update_fields=['task_end_datetime', 'task_step_code', 'task_status_code', 'summarization_content', 'minutes_content', 'action_items',
                                  'last_modified_user', 'last_modified_date'])
 
+    @classmethod
+    def get_count(cls):
+        return Summarization.objects.aggregate(
+            waiting_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.WAITING)
+            ),
+            processing_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.PROCESSING)
+            ),
+            completed_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.COMPLETED)
+            ),
+            failed_count=Count(
+                'id',
+                filter=Q(task_status_code=TaskStatusCode.FAILED)
+            ),
+        )
+
     class Meta:
         db_table = 'meetings_summarization'
         verbose_name = '요약'
         verbose_name_plural = '요약 목록'
         indexes = [
-            models.Index(fields=['speech_recognition', '-id'], name='idx_summarization_01'),
+            models.Index(
+                fields=['task_status_code'],
+                name='idx_summarization_01'
+            ),
         ]
 
     def __str__(self):

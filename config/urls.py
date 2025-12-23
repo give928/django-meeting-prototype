@@ -30,4 +30,5 @@ urlpatterns = [
     path('', include('rooms.urls')),
     path('', include('reservations.urls')),
     path('', include('meetings.urls')),
+    path("metrics/", views.metrics, name="metrics"),
 ]

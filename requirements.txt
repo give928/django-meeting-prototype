@@ -5,7 +5,10 @@ django-bootstrap-datepicker-plus
 django-mptt
 django-q2
 django-environ
+django-mathfilters
 markdown
+psutil
+pynvml
 
 # ML/Audio Stack
 whisperx==3.7.4

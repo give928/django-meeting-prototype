@@ -86,6 +86,3 @@ class SerializationUtils:
 
         except Exception as e:
             return f"역직렬화 오류 발생: {e}"
-
-d = SerializationUtils.deserialize_by_pickle('gAWVbgAAAAAAAAB9lCiMBnN0YXR1c5SMD21lZXRpbmdzLm1vZGVsc5SMDlRhc2tTdGF0dXNDb2RllJOUjAljb21wbGV0ZWSUhZRSlIwMcmVjb3JkaW5nX2lklEsHjBVzcGVlY2hfcmVjb2duaXRpb25faWSUSwV1Lg==')
-print(d)

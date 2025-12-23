@@ -18,11 +18,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.views import View
-from django.views.decorators.http import require_GET
 from django_q.tasks import fetch
 
 from accounts.caches import DepartmentCache
-from common.decorators import json_login_required
 from common.mixins import JsonLoginRequiredMixin
 from common.utils import RequestUtils, ResponseUtils
 from meetings.forms import MeetingForm
@@ -90,7 +88,7 @@ def meetings(request):
             attendees_count=Count('attendees')
         )
          .filter(q)
-         .order_by('-start_datetime', '-id'))
+         .order_by('-start_datetime', '-end_datetime', '-id'))
 
     paginator = Paginator(active_meetings, size)
     page_meetings = paginator.get_page(page)
