@@ -6,7 +6,7 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1
 ENV PIP_PREFER_BINARY=1
 # FFmpeg 시스템 라이브러리 패스 설정
-ENV LD_LIBRARY_PATH="/usr/local/lib:/usr/lib/aarch64-linux-gnu:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/lib:/usr/lib/aarch64-linux-gnu:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH:-}"
 
 # 필수 시스템 패키지 및 ffmpeg 설치
 RUN apt-get update && apt-get install -y \
@@ -54,8 +54,11 @@ RUN pip install gunicorn
 # 소스 코드 복사
 COPY . .
 
-# 정적 파일 수집 (배포용)
-# RUN python manage.py collectstatic --noinput
+# 정적 파일 수집
+RUN python manage.py collectstatic --noinput
+
+# 데이터베이스 마이그레이션
+RUN python manage.py migrate --noinput
 
 # Gunicorn 실행
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]

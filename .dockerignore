@@ -1,0 +1,22 @@
+# 환경 변수 및 비밀 파일 (보안상 매우 중요)
+.env
+.env_prod
+
+*.pyc
+__pycache__
+
+# 로컬 개발 환경 관련
+venv/
+.git
+.gitignore
+.idea/
+docker/
+
+# 로그 및 데이터
+logs/
+db.sqlite3
+*/fixtures/
+# 모든 media 폴더 제외 (사용자 업로드 파일 방지)
+media/
+# 샘플 파일 폴더는 빌드 시 포함 (예외 규칙)
+!media/recordings/samples/
