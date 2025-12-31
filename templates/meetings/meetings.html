@@ -26,17 +26,17 @@
                             <label class="form-label" for="attendee">참석자</label>
                             <input type="text" class="form-control" id="attendee" name="attendee" value="{{ request.GET.attendee }}"/>
                         </div>
-                        <div class="col-6 col-md-3">
+                        <div class="col-6 col-md-4">
                             <div class="row g-1">
-                                <div class="col-6 col-md-5">
+                                <div class="col-6 col-md-6">
                                     <label for="word" class="form-label">단어</label>
                                     <select class="form-select" id="word_search_type" name="word_search_type">
-                                        <option value="start"{% if request.GET.word_search_type == 'start' %} selected=""{% endif %}>시작 문자</option>
-                                        <option value="end"{% if request.GET.word_search_type == 'end' %} selected=""{% endif %}>끝 문자</option>
-                                        <option value="like"{% if request.GET.word_search_type == 'like' %} selected=""{% endif %}>포함</option>
+                                        <option value="similar"{% if request.GET.word_search_type == 'similar' %} selected=""{% endif %}>오타 교정 검색</option>
+                                        <option value="case-insensitive"{% if request.GET.word_search_type == 'case-insensitive' %} selected=""{% endif %}>대·소문자 무시</option>
+                                        <option value="contains"{% if request.GET.word_search_type == 'contains' %} selected=""{% endif %}>대·소문자 구분</option>
                                     </select>
                                 </div>
-                                <div class="col-6 col-md-7">
+                                <div class="col-6 col-md-6">
                                     <label for="word_search_type" class="form-label">&nbsp;</label>
                                     <input type="text" class="form-control" id="word" name="word" value="{{ request.GET.word }}"/>
                                 </div>

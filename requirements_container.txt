@@ -1,0 +1,39 @@
+# Core Framework
+Django
+django_bootstrap5
+django-bootstrap-datepicker-plus
+django-mptt
+django-q2
+django-environ
+django-mathfilters
+psycopg2-binary
+markdown
+psutil
+pynvml
+gunicorn
+
+# Deep Learning Backend
+torch==2.5.1
+torchaudio==2.5.1
+torchvision==0.20.1
+
+# ML/Audio Stack
+# 의존성 문제로 Dockerfile 에서 설치
+
+# Audio Dependencies
+ctranslate2==4.4.0
+pyannote.audio==3.3.1
+pydub
+nltk
+pandas
+scipy
+setuptools
+
+# Huggingface
+transformers>=4.35.0,<4.45.0
+tokenizers>=0.15.0,<0.20.0
+accelerate>=0.25.0
+huggingface_hub>=0.20.0
+
+# Gemini API
+google-genai

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-dev
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - "5432:5432"
+    environment:
+      - TZ=Asia/Seoul
+      - POSTGRES_DB=meeting_db
+      - POSTGRES_USER=meeting_user
+      - POSTGRES_PASSWORD=P@ssw0rd
+    volumes:
+      - ./data:/var/lib/postgresql/18/docker

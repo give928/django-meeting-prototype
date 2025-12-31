@@ -13,7 +13,7 @@ from google import genai
 from google.genai import types
 from google.genai.errors import APIError
 
-from meetings.models import Recording, SpeechRecognition, Speaker, Segment, Word, Summarization, GEMINI_2_5_PRO_MODEL_NAME, GEMINI_2_5_FLASH_MODEL_NAME, GEMINI_3_FLASH_MODEL_NAME
+from meetings.models import Recording, SpeechRecognition, Speaker, Segment, Word, Summarization, GEMINI_2_5_FLASH_MODEL_NAME, GEMINI_3_FLASH_MODEL_NAME
 from .errors import GeminiApiError
 from .utils import RecordingUtils
 
@@ -127,13 +127,13 @@ def run_speech_recognition(recording_id: int, user_id: int):
                 speaker_label = segment_data['speaker']
                 speaker = speaker_map[speaker_label]
 
-                start_ms = int(segment_data['start'] * 1000)
-                end_ms = int(segment_data['end'] * 1000)
+                segment_start = segment_data.get('start')
+                segment_end = segment_data.get('end')
 
                 segment = Segment.objects.create(
-                    start_millisecond=start_ms,
-                    end_millisecond=end_ms,
                     text=segment_data['text'].strip(),
+                    start_millisecond=int(segment_start * 1000) if segment_start is not None else None,
+                    end_millisecond=int(segment_end * 1000) if segment_end is not None else None,
                     speech_recognition=speech_recognition,
                     speaker=speaker,
                     created_user=user,
@@ -141,16 +141,15 @@ def run_speech_recognition(recording_id: int, user_id: int):
                 )
 
                 for word_data in segment_data['words']:
-                    word_start_ms = int(word_data['start'] * 1000)
-                    word_end_ms = int(word_data['end'] * 1000)
+                    word_start = word_data.get('start')
+                    word_end = word_data.get('end')
 
                     words_to_create.append(
                         Word(
                             word=word_data['word'],
                             score=word_data.get('score', 0.0),
-                            start_millisecond=word_start_ms,
-                            end_millisecond=word_end_ms,
-                            search_content=word_data['word'],
+                            start_millisecond=int(word_start * 1000) if word_start is not None else None,
+                            end_millisecond=int(word_end * 1000) if word_end is not None else None,
                             segment=segment,
                             speaker=speaker,
                             created_user=user,
@@ -454,7 +453,6 @@ def correct_words(segments_to_update, user):
                         word.corrected_word = None
                         word.is_correction_removed = True
 
-                    word.search_content = f"{word.corrected_word or ''} {(word.word if word.corrected_word != word.word else None) or ''}".strip()
                     word.last_modified_user = user
                     word.last_modified_date = now
                     words_to_bulk_update.append(word)
@@ -462,7 +460,6 @@ def correct_words(segments_to_update, user):
                 for word in segment_words[i1:i2]:
                     word.corrected_word = None
                     word.is_correction_removed = True
-                    word.search_content = f"{word.corrected_word or ''} {(word.word if word.corrected_word != word.word else None) or ''}".strip()
                     word.last_modified_user = user
                     word.last_modified_date = now
                     words_to_bulk_update.append(word)
@@ -472,6 +469,6 @@ def correct_words(segments_to_update, user):
     if words_to_bulk_update:
         Word.objects.bulk_update(
             words_to_bulk_update,
-            ['corrected_word', 'is_correction_removed', 'search_content', 'last_modified_user', 'last_modified_date'],
+            ['corrected_word', 'is_correction_removed', 'last_modified_user', 'last_modified_date'],
             batch_size=1000
         )

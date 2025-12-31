@@ -41,9 +41,9 @@
                                             <div class="accordion-body">
                                                 <div class="d-flex align-items-center">
                                                     <audio data-recording_id="{{ recording.pk }}" controls
-                                                           src="{% url 'recording_download' form.instance.pk recording.pk %}?mode=play" class="flex-grow-1"
+                                                           src="{% url 'download_recording' form.instance.pk recording.pk %}?mode=play" class="flex-grow-1"
                                                            preload="metadata"></audio>
-                                                    <a href="{% url 'recording_download' form.instance.pk recording.pk %}" download class="btn btn-outline-secondary btn-sm ms-3">다운로드</a>
+                                                    <a href="{% url 'download_recording' form.instance.pk recording.pk %}" download class="btn btn-outline-secondary btn-sm ms-3">다운로드</a>
                                                     {% if recording.latest_summarization.task_status_code == 'completed' %}
                                                         <button class="btn btn-primary btn-sm ms-2 viewTranscriptButton" data-recording_id="{{ recording.id }}"
                                                                 data-speech_recognition_id="{{ recording.latest_summarization_id }}"
@@ -113,10 +113,11 @@
                                 <div id="recordingTimer" class="ms-3 fw-bold">00:00:00</div>
                                 <canvas id="recordingVolume" class="ms-3" width="300" height="40" style="border-radius:4px;background:#f8f9fa;"></canvas>
                             </div>
-                            <div class="mt-3 pt-3 border-top d-flex align-items-center gap-3" id="fileUploadContainer">
+                            <div class="mt-3 pt-3 border-top d-flex align-items-center gap-2" id="fileUploadContainer">
                                 <label for="audioFile" class="form-label mb-0 fw-bold text-nowrap">별도 녹음 파일 업로드</label>
                                 <input class="form-control flex-grow-1" type="file" id="audioFile" accept="audio/*" multiple="false"/>
                                 <button id="uploadFileButton" class="btn btn-primary flex-shrink-0 text-nowrap" disabled="">업로드</button>
+                                <button type="button" class="btn btn-secondary flex-shrink-0 text-nowrap" data-bs-toggle="modal" data-bs-target="#sampleModal">샘플 음성 파일</button>
                             </div>
                         </div>
                     </div>
@@ -156,6 +157,7 @@
             </div>
         </form>
     </div>
+    {% include "./samples.html" %}
 {% endblock %}
 {% block extra_scripts %}
     <script type="text/javascript" src="{% static "js/marked/marked.min.js" %}"></script>

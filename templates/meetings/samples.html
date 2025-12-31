@@ -1,0 +1,92 @@
+<div class="modal fade" id="sampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="sampleModalLabel">샘플 음성 파일</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-sm table-bordered">
+                    <colgroup>
+                        <col style="width: 10%;"/>
+                        <col style="width: 20%;"/>
+                        <col style=""/>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col">출처</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">음성</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" rowspan="15" class="align-content-center"><a href="https://aihub.or.kr/aihubdata/data/view.do?srchOptnCnd=OPTNCND001&currMenu=115&topMenu=100&searchKeyword=%ED%9A%8C%EC%9D%98+%EC%9D%8C%EC%84%B1&aihubDataSe=data&dataSetSn=132" target="_blank">AI Hub</a></th>
+                        <td class="align-middle">S000011</td>
+                        <td class="align-items-center"><audio controls src="{% url 'download_sample' 'S000011' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000020</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000020' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000024</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000024' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000030</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000030' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000031</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000031' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000038</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000038' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000044</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000044' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000061</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000061' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000067</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000067' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000068</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000068' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000069</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000069' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000086</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000086' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000094</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000094' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000405</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000405' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle">S000435</td>
+                        <td class="align-middle"><audio controls src="{% url 'download_sample' 'S000435' %}?mode=play" class="w-100" preload="metadata"></audio></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

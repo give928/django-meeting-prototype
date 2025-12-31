@@ -3,6 +3,7 @@ import os
 import subprocess
 import traceback
 import uuid
+from urllib.parse import quote
 
 from django.conf import settings
 from django.contrib import messages
@@ -13,14 +14,17 @@ from django.core.files.base import ContentFile
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q, Exists, Count, Subquery, OuterRef
-from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
+from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.views import View
+from django.views.decorators.http import require_GET
 from django_q.tasks import fetch
 
 from accounts.caches import DepartmentCache
+from common.decorators import json_login_required
 from common.mixins import JsonLoginRequiredMixin
 from common.utils import RequestUtils, ResponseUtils
 from meetings.forms import MeetingForm
@@ -56,16 +60,16 @@ def meetings(request):
             )
         )
     if word:
-        if word_search_type == 'start':
-            search_content_like = Q(search_content__istartswith=word)
-        elif word_search_type == 'end':
-            search_content_like = Q(search_content__iendswith=word)
+        if word_search_type == 'similar':
+            word_like = Q(word__trigram_similar=word) | Q(corrected_word__trigram_similar=word)
+        elif word_search_type == 'case-insensitive':
+            word_like = Q(word__icontains=word) | Q(corrected_word__icontains=word)
         else:
-            search_content_like = Q(search_content__icontains=word)
+            word_like = Q(word__contains=word) | Q(corrected_word__contains=word)
 
         q &= Exists(
             Word.objects.filter(
-                search_content_like,
+                word_like,
                 segment__speech_recognition__recording__meeting_id=OuterRef('pk')
             )
         )
@@ -361,7 +365,7 @@ class RecordingUploadView(JsonLoginRequiredMixin, View):
         with transaction.atomic():
             recording = Recording.objects.create(**recording_fields)
 
-        download_url = reverse('recording_download', args=[meeting_id, recording.pk])
+        download_url = reverse('download_recording', args=[meeting_id, recording.pk])
 
         return JsonResponse({
             'status': 'success',
@@ -369,6 +373,49 @@ class RecordingUploadView(JsonLoginRequiredMixin, View):
             'play_millisecond': recording.play_millisecond,  # 실제 재생 시간 추출 로직 필요
             'download_url': request.build_absolute_uri(download_url) if download_url else None,
         })
+
+
+@require_GET
+@json_login_required
+def download_sample(request, filename):
+    if '/' in filename or '\\' in filename or '..' in filename:
+        return HttpResponseForbidden("⛔️ 허용되지 않은 파일입니다.")
+
+    filename = filename + '.wav'
+
+    base_dir = os.path.join(settings.MEDIA_ROOT, 'recordings', 'samples')
+    file_path = os.path.join(base_dir, filename)
+
+    if not os.path.exists(file_path):
+        return HttpResponse('😱 파일이 서버에 존재하지 않아요.', status=404)
+
+    import mimetypes
+    content_type, _ = mimetypes.guess_type(file_path)
+    content_type = content_type or 'application/octet-stream'
+
+    file_size = os.path.getsize(file_path)
+
+    if not settings.DEBUG:
+        response = HttpResponse()
+        internal_path = f'/protected/media/recordings/samples/{filename}'
+        response['X-Accel-Redirect'] = internal_path
+        response['Content-Type'] = content_type
+
+        if request.GET.get('mode') != 'play':
+            encoded_filename = quote(filename)
+            response['Content-Disposition'] = (
+                f'attachment; filename="{encoded_filename}"; '
+                f'filename*=UTF-8\'\'{encoded_filename}'
+            )
+        return response
+
+    return ResponseUtils.response_file_with_range(
+        request=request,
+        content_type=content_type,
+        file_path=file_path,
+        file_size=file_size,
+        file_name=filename if request.GET.get('mode') != 'play' else None
+    )
 
 
 class RecordingDownloadView(JsonLoginRequiredMixin, View):
@@ -386,18 +433,29 @@ class RecordingDownloadView(JsonLoginRequiredMixin, View):
             return HttpResponse('😱 파일 경로가 지정되지 않았어요.', status=404)
 
         file_path = file_field.path
-        file_size = file_field.size
 
         if not os.path.exists(file_path):
             return HttpResponse('😱 파일이 서버에 존재하지 않아요.', status=404)
 
+        content_type = recording.content_type
         file_name = recording.upload_file_name
+
+        if not settings.DEBUG:
+            response = HttpResponse()
+            response['X-Accel-Redirect'] = file_field.url  # nginx 사용
+            response['Content-Type'] = content_type
+
+            if request.GET.get('mode') != 'play':
+                encoded_filename = quote(file_name)
+                response['Content-Disposition'] = f'attachment; filename="{encoded_filename}"; filename*=UTF-8\'\'{encoded_filename}'
+
+            return response
 
         return ResponseUtils.response_file_with_range(
             request,
-            recording.content_type,
+            content_type,
             file_path,
-            file_size,
+            file_field.size,
             file_name if request.GET.get('mode') != 'play' else None
         )
 
@@ -413,7 +471,8 @@ class RecordingView(JsonLoginRequiredMixin, View):
                                 .select_related('speaker')
                                 .only('id', 'speaker__user', 'speaker__speaker_label', 'start_millisecond', 'end_millisecond', 'text', 'corrected_text')
                                 .filter(speech_recognition=speech_recognition)
-                                .all())
+                                .all()
+                                .order_by('start_millisecond'))
 
             segments = []
 

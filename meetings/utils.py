@@ -12,7 +12,8 @@ class RecordingUtils:
     @staticmethod
     def transcribe(file_path):
         model = ModelHolder.get_model()
-        return model.transcribe(file_path)
+        batch_size = ModelHolder.get_thread_count()
+        return model.transcribe(file_path, batch_size=batch_size, print_progress=True)
 
     @staticmethod
     def align(file_path, language_code, segments) -> dict:
@@ -46,9 +47,14 @@ class ModelHolder:
     @staticmethod
     def get_model():
         if ModelHolder._MODEL is None:
+            device = ModelHolder.get_device()
+            threads = ModelHolder.get_thread_count()
+
             ModelHolder._MODEL = whisperx.load_model(ModelHolder._MODEL_SIZE,
-                                                     device=ModelHolder.get_device(),
-                                                     compute_type="int8")
+                                                     device=device,
+                                                     compute_type="float16" if device == "cuda" else "int8",
+                                                     threads=threads,
+                                                     )
         return ModelHolder._MODEL
 
     @staticmethod
@@ -102,3 +108,9 @@ class ModelHolder:
             #     ModelHolder._DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
             ModelHolder._DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
         return ModelHolder._DEVICE
+
+    @staticmethod
+    def get_thread_count():
+        if ModelHolder.get_device() == "cuda":
+            return 16
+        return 4

@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import logging
 import os
 from pathlib import Path
 
@@ -26,7 +27,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8vhs(g=qi43$d0!gn_3a@d)xt8s=u!1+xwbod6)qlq0m(2#tzo'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'meetings.apps.MeetingsConfig',
     'django_q',
     'mathfilters',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +93,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(),
+    # 'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
+    }
 }
 
 
@@ -139,8 +149,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # custom
 
 # STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIRS = [ BASE_DIR / 'static' ]
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static'
+    ]
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -153,6 +167,13 @@ SESSION_COOKIE_AGE = 600
 SESSION_SAVE_EVERY_REQUEST = True
 
 # logging
+class SkipDjangoQPollingFilter(logging.Filter):
+    def filter(self, record):
+        msg = str(record.getMessage())
+        if "FROM \"django_q_ormq\"" in msg:
+            return False
+        return True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -165,6 +186,9 @@ LOGGING = {
         },
         'ignore_noise': {
             '()': 'config.filters.IgnoreNoiseRequestsFilter',
+        },
+        'skip_q_polling': {
+            '()': SkipDjangoQPollingFilter,
         },
     },
     'formatters': {
@@ -180,19 +204,19 @@ LOGGING = {
     'handlers': {
         'console_dev': {
             'level': 'DEBUG',
-            'filters': ['require_debug_true'],
+            'filters': ['require_debug_true', 'skip_q_polling'],
             'class': 'logging.StreamHandler',
             'formatter': 'standard',
         },
         'console_prod': {
             'level': 'INFO',
-            'filters': ['require_debug_false'],
+            'filters': ['require_debug_false', 'skip_q_polling'],
             'class': 'logging.StreamHandler',
             'formatter': 'standard',
         },
         'file': {
             'level': 'INFO',
-            'filters': ['require_debug_false'],
+            'filters': ['require_debug_false', 'skip_q_polling'],
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': BASE_DIR / 'logs/meeting.log',
             'when': 'd',
@@ -209,7 +233,7 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'django.server',
-            'filters': ['require_debug_true', 'ignore_noise'],
+            'filters': ['require_debug_true', 'ignore_noise', 'skip_q_polling'],
         },
     },
     'root': {
@@ -232,6 +256,11 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        "django_q": {
+            "handlers": ['console_dev' if DEBUG else 'console_prod'],
+            "level": "INFO",
+            "propagate": False,
+        },
     }
 }
 
@@ -245,10 +274,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # queue
 Q_CLUSTER = {
     'name': 'DjangORM',
-    'workers': 2,
+    'workers': 1,
+    'recycle': 1, # 작업 하나 끝날 때마다 프로세스 초기화(메모리 누수 방지)
     'timeout': 7200,
     'retry': 10800,
     'queue_limit': 50,
+    "poll": 3,
+    'ack_failures': True,
     'orm': 'default',
 }
 
@@ -257,3 +289,6 @@ HF_TOKEN = env('HF_TOKEN')
 
 # Gemini API Key
 GEMINI_API_KEY = env('GEMINI_API_KEY')
+
+# upload
+FILE_UPLOAD_MAX_MEMORY_SIZE=67108864

@@ -1,6 +1,7 @@
 import logging
 from datetime import timedelta
 
+from django.contrib.postgres.indexes import GinIndex
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import OuterRef, Subquery, Count, Q
@@ -282,7 +283,7 @@ class SpeechRecognition(Base):
     diarization_end_datetime = models.DateTimeField(null=True, blank=True, verbose_name='화자 분리 종료 시간')
     assignment_end_datetime = models.DateTimeField(null=True, blank=True, verbose_name='할당 종료 시간')
     task_end_datetime = models.DateTimeField(null=True, blank=True, verbose_name='작업 종료 시간')
-    task_step_code = models.CharField(max_length=16, null=True, blank=True, verbose_name='작업 단계 코드')
+    task_step_code = models.CharField(max_length=32, null=True, blank=True, verbose_name='작업 단계 코드')
     task_status_code = models.CharField(max_length=16, verbose_name='작업 상태 코드')
     language_code = models.CharField(max_length=2, null=True, blank=True, verbose_name='언어 코드')
     recording = models.ForeignKey('Recording', on_delete=models.RESTRICT, related_name='speech_recognition_set', verbose_name='녹음')
@@ -451,7 +452,7 @@ class SpeechRecognition(Base):
         if not self.is_processing():
             raise ValidationError('실패 처리가 불가한 상태에요.')
 
-        update_fields = ['end_datetime', 'task_status_code', 'last_modified_user', 'last_modified_date']
+        update_fields = ['task_end_datetime', 'task_status_code', 'last_modified_user', 'last_modified_date']
 
         if self.task_start_datetime is None:
             self.task_start_datetime = start_datetime
@@ -559,9 +560,9 @@ class Speaker(Base):
 
 class Segment(Base):
     id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='id')
-    start_millisecond = models.IntegerField(verbose_name='시작 밀리초')
-    end_millisecond = models.IntegerField(verbose_name='종료 밀리초')
     text = models.TextField(verbose_name='문자')
+    start_millisecond = models.IntegerField(null=True, blank=True, verbose_name='시작 밀리초')
+    end_millisecond = models.IntegerField(null=True, blank=True, verbose_name='종료 밀리초')
     corrected_text = models.TextField(null=True, blank=True, verbose_name='교정된 문자')
     speech_recognition = models.ForeignKey('SpeechRecognition', on_delete=models.CASCADE, verbose_name='음성 인식')
     speaker = models.ForeignKey('Speaker', on_delete=models.CASCADE, verbose_name='화자')
@@ -579,10 +580,9 @@ class Word(Base):
     id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='id')
     word = models.CharField(max_length=128, verbose_name='단어')
     score = models.FloatField(verbose_name='점수')
-    start_millisecond = models.IntegerField(verbose_name='시작 밀리초')
-    end_millisecond = models.IntegerField(verbose_name='종료 밀리초')
+    start_millisecond = models.IntegerField(null=True, blank=True, verbose_name='시작 밀리초')
+    end_millisecond = models.IntegerField(null=True, blank=True, verbose_name='종료 밀리초')
     corrected_word = models.CharField(max_length=128, null=True, blank=True, verbose_name='교정된 단어')
-    search_content = models.CharField(max_length=256, verbose_name='검색 내용')
     is_correction_removed = models.BooleanField(default=False, verbose_name='교정 삭제 여부')
     segment = models.ForeignKey('Segment', on_delete=models.CASCADE, verbose_name='부분')
     speaker = models.ForeignKey('Speaker', on_delete=models.CASCADE, verbose_name='화자')
@@ -592,7 +592,16 @@ class Word(Base):
         verbose_name = '단어'
         verbose_name_plural = '단어 목록'
         indexes = [
-            models.Index(fields=['search_content'], name='idx_word_01'),
+            GinIndex(
+                fields=['word'],
+                name='idx_trgm_word_01',
+                opclasses=['gin_trgm_ops'] # 중요: Trigram 연산을 위한 옵션
+            ),
+            GinIndex(
+                fields=['corrected_word'],
+                name='idx_trgm_word_02',
+                opclasses=['gin_trgm_ops']
+            ),
         ]
 
     def __str__(self):
@@ -605,7 +614,7 @@ class Summarization(Base):
     generative_ai_model_name = models.CharField(max_length=64, null=True, blank=True, verbose_name='생성형 AI 모델 이름')
     task_start_datetime = models.DateTimeField(null=True, blank=True, verbose_name='작업 시작 시간')
     task_end_datetime = models.DateTimeField(null=True, blank=True, verbose_name='작업 종료 시간')
-    task_step_code = models.CharField(max_length=16, null=True, blank=True, verbose_name='작업 단계 코드')
+    task_step_code = models.CharField(max_length=32, null=True, blank=True, verbose_name='작업 단계 코드')
     task_status_code = models.CharField(max_length=16, verbose_name='작업 상태 코드')
     summarization_content = models.TextField(null=True, blank=True, verbose_name='요약 내용')
     minutes_content = models.TextField(null=True, blank=True, verbose_name='회의록 내용')

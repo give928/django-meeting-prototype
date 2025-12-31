@@ -6,9 +6,11 @@ django-mptt
 django-q2
 django-environ
 django-mathfilters
+psycopg2-binary
 markdown
 psutil
 pynvml
+gunicorn
 
 # ML/Audio Stack
 whisperx==3.7.4
