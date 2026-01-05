@@ -29,12 +29,11 @@ services:
     env_file:
       - .env_prod
     environment:
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
+      - DATABASE_HOST=${DATABASE_HOST:-postgres}
+      - DATABASE_PORT=${DATABASE_PORT:-5432}
       - DATABASE_NAME=${DATABASE_NAME:-meeting_db}
       - DATABASE_USER=${DATABASE_USER:-meeting_user}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD:-P@ssw0rd}
-      - TORCH_FORCE_WEIGHTS_ONLY_LOAD=0
     depends_on:
       - postgres
     volumes:
@@ -52,12 +51,11 @@ services:
     env_file:
       - .env_prod
     environment:
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
+      - DATABASE_HOST=${DATABASE_HOST:-postgres}
+      - DATABASE_PORT=${DATABASE_PORT:-5432}
       - DATABASE_NAME=${DATABASE_NAME:-meeting_db}
       - DATABASE_USER=${DATABASE_USER:-meeting_user}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD:-P@ssw0rd}
-      - TORCH_FORCE_WEIGHTS_ONLY_LOAD=0
     depends_on:
       - postgres
       - django

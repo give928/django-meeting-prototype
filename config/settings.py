@@ -148,13 +148,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # custom
 
-# STATIC_ROOT = BASE_DIR / 'static'
-if DEBUG:
-    STATICFILES_DIRS = [
-        BASE_DIR / 'static'
-    ]
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'staticfiles',  # 폴더 이름을 staticfiles -> staticfiles로 변경했을 경우
+]
+
+# 2. 모든 환경 공통: 수집된 파일이 최종적으로 모이는 곳 (Nginx가 바라보는 곳)
+STATIC_ROOT = BASE_DIR / 'static'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -173,6 +173,10 @@ class SkipDjangoQPollingFilter(logging.Filter):
         if "FROM \"django_q_ormq\"" in msg:
             return False
         return True
+
+LOG_DIR = BASE_DIR / 'logs'
+if not LOG_DIR.exists():
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 LOGGING = {
     'version': 1,
@@ -218,7 +222,7 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_false', 'skip_q_polling'],
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': BASE_DIR / 'logs/meeting.log',
+            'filename': LOG_DIR / 'meeting.log',
             'when': 'd',
             'interval': 1,
             'backupCount': 10,

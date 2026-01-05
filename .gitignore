@@ -211,3 +211,5 @@ __marimo__/
 .env_*
 logs/
 media/
+docker/postgres/dev/data
+docker/postgres/prod/data

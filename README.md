@@ -48,6 +48,8 @@ $ python3.11 -m venv .venv
 $ source .venv/bin/activate
 $ python3 --version
 Python 3.11.14
+
+$ git clone https://github.com/give928/django-meeting-prototype.git
 $ pip install av==12.3.0 --no-deps
 $ pip install -r requirements_mac.txt
 ```
