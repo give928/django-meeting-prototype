@@ -153,7 +153,11 @@ STATICFILES_DIRS = [
     BASE_DIR / 'staticfiles',
 ]
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
 
 # 수집된 파일이 최종적으로 모이는 곳 (Nginx가 바라보는 곳)
 STATIC_ROOT = BASE_DIR / 'static'
