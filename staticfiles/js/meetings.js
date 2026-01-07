@@ -835,7 +835,7 @@ const meetings = function (options) {
                 });
             });
 
-            BootstrapAccordionUtils.focus(document.getElementById(`collapse-recording-${recordingId}`));
+            BootstrapAccordionUtils.focus(document.getElementById(`collapse-recording-${recordingId}`), 'center');
         } catch (err) {
             spinnerContainer.classList.add("d-none");
             contentContainer.innerHTML = `<div class="alert alert-danger mt-3 mb-0" role="alert">😱 오류가 발생했어요. 관리자에게 문의해 주세요.</div>`;
