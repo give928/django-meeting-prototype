@@ -7,6 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item"><a class="nav-link{% if request.path == '/home/' %} active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.path|slice:"0:9" == '/metrics/' %} active{% endif %}" aria-current="page" href="{% url 'metrics' %}">Metrics</a></li>
                 <li class="nav-item"><a class="nav-link{% if request.path|slice:"0:13" == '/departments/' %} active{% endif %}" aria-current="page" href="{% url 'departments' %}">Departments&Users</a></li>
                 <li class="nav-item"><a class="nav-link{% if request.path|slice:"0:7" == '/rooms/' %} active{% endif %}" aria-current="page" href="{% url 'rooms' %}">Rooms</a></li>
                 <li class="nav-item"><a class="nav-link{% if request.path|slice:"0:14" == '/reservations/' %} active{% endif %}" aria-current="page" href="{% url 'reservations' %}">Reservations</a></li>

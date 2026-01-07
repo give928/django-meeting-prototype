@@ -1,7 +1,9 @@
 import logging
+import os
 
 from django.core.cache import cache
 
+from config import settings
 from config.metrics.cpu import get_cpu
 from config.metrics.gpu import get_gpu
 from config.metrics.memory import get_memory
@@ -43,3 +45,26 @@ class MetricsCache:
             "os": os,
             "task": task,
         }
+
+class ReadmeCache:
+    @classmethod
+    def get(cls):
+        key = 'readme'
+        try:
+            readme = cache.get(key)
+            if readme is None:
+                raise RuntimeError('리드미 캐시 데이터가 없습니다.')
+            logger.debug('Cache hit readme')
+        except Exception as e:
+            logger.debug('Cache miss readme')
+            readme_path = os.path.join(settings.BASE_DIR, 'README.md')
+
+            readme = ""
+            if os.path.exists(readme_path):
+                with open(readme_path, 'r', encoding='utf-8') as f:
+                    readme = f.read()
+
+            cache.set(key, readme, 3600)
+            logger.debug('Cache set readme: %s', readme is not None)
+
+        return readme
