@@ -154,6 +154,9 @@ STATICFILES_DIRS = [
 ]
 
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
     },
@@ -302,3 +305,17 @@ GEMINI_API_KEY = env('GEMINI_API_KEY')
 
 # upload
 FILE_UPLOAD_MAX_MEMORY_SIZE=67108864
+
+# tls
+if not DEBUG:
+    # 신뢰할 수 있는 Origin 등록
+    CSRF_TRUSTED_ORIGINS = [
+        f"https://{env.list('ALLOWED_HOSTS')[0]}"
+    ]
+
+    # 프록시 헤더 설정 (Nginx가 보낸 HTTPS 신호를 감지)
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    # 추가적인 보안 세션 설정
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True

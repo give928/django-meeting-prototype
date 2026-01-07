@@ -36,8 +36,8 @@ RUN pip install --upgrade pip setuptools wheel
 
 RUN pip install "numpy<2.0"
 
-COPY requirements_container.txt .
-RUN pip install --no-cache-dir -r requirements_container.txt
+COPY requirements_mac_container.txt .
+RUN pip install --no-cache-dir -r requirements_mac_container.txt
 
 # 텍스트 분절을 위한 데이터(punkt) 다운로드
 RUN python -m nltk.downloader punkt
