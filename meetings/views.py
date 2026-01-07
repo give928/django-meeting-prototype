@@ -303,7 +303,7 @@ class RecordingUploadView(JsonLoginRequiredMixin, View):
             recording_fields['webm_file_size'] = file.size
 
             recording_fields['upload_file'] = None
-            recording_fields['upload_file_size'] = 0
+            recording_fields['upload_file_size'] = None
         elif source_type == 'upload_file' and file_ext in REQUIRES_CONVERSION_EXTENSIONS:
             file.name = upload_file_name
             recording_fields['upload_file'] = file
@@ -381,7 +381,7 @@ def download_sample(request, filename):
     if '/' in filename or '\\' in filename or '..' in filename:
         return HttpResponseForbidden("⛔️ 허용되지 않은 파일입니다.")
 
-    filename = filename + '.wav'
+    filename = filename + '.webm'
 
     base_dir = os.path.join(settings.MEDIA_ROOT, 'recordings', 'samples')
     file_path = os.path.join(base_dir, filename)
