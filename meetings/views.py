@@ -397,7 +397,7 @@ def download_sample(request, filename):
 
     if not settings.DEBUG:
         response = HttpResponse()
-        internal_path = f'/protected/media/recordings/samples/{filename}'
+        internal_path = f'/media/recordings/samples/{filename}'
         response['X-Accel-Redirect'] = internal_path
         response['Content-Type'] = content_type
 
