@@ -34,7 +34,6 @@ class StringUtils {
 
 const BootstrapAccordionUtils = {
     focus(element, block='start') {
-        console.log(element, block);
         const accordion = bootstrap.Collapse.getOrCreateInstance(element, {
             toggle: false
         });
