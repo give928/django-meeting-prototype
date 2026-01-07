@@ -223,7 +223,10 @@
             });
 
             {% if recordings %}
-            document.querySelector('.viewTranscriptButton').click();
+            const firstViewTranscriptButton = document.querySelector('.viewTranscriptButton');
+            if (firstViewTranscriptButton) {
+                firstViewTranscriptButton.click();
+            }
             {% endif %}
         });
     </script>
