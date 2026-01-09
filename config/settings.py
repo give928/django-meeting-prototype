@@ -274,7 +274,7 @@ LOGGING = {
             'propagate': False,
         },
         "django_q": {
-            "handlers": ['console_dev' if DEBUG else 'console_prod'],
+            "handlers": ['console_dev' if DEBUG else 'console_prod', 'file'],
             "level": "INFO",
             "propagate": False,
         },
