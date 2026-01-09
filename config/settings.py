@@ -254,7 +254,7 @@ LOGGING = {
         },
     },
     'root': {
-        'handlers': ['console_dev' if DEBUG else 'console_prod'],
+        'handlers': ['console_dev'] if DEBUG else ['console_prod', 'file'],
         'level': 'DEBUG' if DEBUG else 'INFO',
     },
     'loggers': {
@@ -264,7 +264,7 @@ LOGGING = {
             'propagate': True,
         },
         "django.db.backends": {
-            "handlers": ['console_dev' if DEBUG else 'console_prod'],
+            "handlers": ['console_dev'] if DEBUG else ['console_prod', 'file'],
             "level": 'DEBUG' if DEBUG else 'INFO',
             'propagate': False,
         },
@@ -274,7 +274,7 @@ LOGGING = {
             'propagate': False,
         },
         "django_q": {
-            "handlers": ['console_dev' if DEBUG else 'console_prod', 'file'],
+            "handlers": ['console_dev'] if DEBUG else ['console_prod', 'file'],
             "level": "INFO",
             "propagate": False,
         },
