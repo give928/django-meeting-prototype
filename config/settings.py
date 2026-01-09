@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import logging
 import os
+import re
 from pathlib import Path
 
 import environ
@@ -187,6 +188,8 @@ LOG_DIR = BASE_DIR / 'logs'
 if not LOG_DIR.exists():
     LOG_DIR.mkdir(parents=True, exist_ok=True)
 
+LOG_FILENAME = LOG_DIR / f"{os.environ.get('APP_NAME', 'django')}.log"
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -231,11 +234,12 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_false', 'skip_q_polling'],
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': LOG_DIR / 'meeting.log',
-            'when': 'd',
+            'filename': LOG_FILENAME,
+            'when': 'midnight',
             'interval': 1,
-            'backupCount': 10,
+            'backupCount': 30,
             'formatter': 'standard',
+            'encoding': 'utf-8',
         },
         'mail_admins': {
             'level': 'ERROR',

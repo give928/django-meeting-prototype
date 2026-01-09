@@ -10,7 +10,8 @@ venv/
 .git
 .gitignore
 .idea/
-docker/
+docker/nginx/
+docker/postgres/
 
 # 로그 및 데이터
 logs/
