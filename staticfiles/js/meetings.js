@@ -701,8 +701,8 @@ const meetings = function (options) {
 
             let transcriptHtml = `
                 <div class="mt-3">
-                    <table class="table table-hover">
-                        <tbody>
+                    <table class="table table-hover mobile-stack">
+                        <thead>
                         <tr>
                             <th scope="col">음성 인식 모델</th>
                             <th scope="col">정렬 모델</th>
@@ -710,12 +710,14 @@ const meetings = function (options) {
                             <th scope="col">언어 코드</th>
                             <th scope="col">교정·요약 생성형 AI 모델</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <tr>
-                            <td>${data.info.speech_recognition_model_name}</td>
-                            <td>${data.info.align_model_name}</td>
-                            <td>${data.info.diarization_model_name}</td>
-                            <td>${data.info.language_code !== null ? data.info.language_code : '확인 중'}</td>
-                            <td>${data.info.generative_ai_model_name}</td>
+                            <td data-label="음성 인식 모델">${data.info.speech_recognition_model_name}</td>
+                            <td data-label="정렬 모델">${data.info.align_model_name}</td>
+                            <td data-label="화자 분리 모델">${data.info.diarization_model_name}</td>
+                            <td data-label="언어 코드">${data.info.language_code !== null ? data.info.language_code : '확인 중'}</td>
+                            <td data-label="교정·요약 생성형 AI 모델">${data.info.generative_ai_model_name}</td>
                         </tr>
                         </tbody>
                     </table>

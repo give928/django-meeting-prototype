@@ -126,9 +126,49 @@ select.form-select[readonly] {
 }
 
 .text-pre-wrap {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 }
 
 .wide-tooltip .tooltip-inner {
     max-width: 200em;
+}
+
+@media (max-width: 768px) {
+    .mobile-stack thead {
+        display: none;
+    }
+
+    .mobile-stack, .mobile-stack tbody, .mobile-stack tr, .mobile-stack td {
+        display: block;
+        width: 100%;
+    }
+
+    .mobile-stack tr {
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .mobile-stack td {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border: none;
+        padding: 8px 0;
+        border-bottom: 1px dashed #eee;
+    }
+
+    .mobile-stack td:last-child {
+        border-bottom: none;
+    }
+
+    .mobile-stack td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #495057;
+        flex-shrink: 0;
+        margin-right: 15px;
+    }
 }
